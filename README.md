@@ -1,2 +1,3 @@
-# restful-booker
-RESTful-booker Service API test collection
+# Summary
+
+RESTful-booker Service API test collection.
