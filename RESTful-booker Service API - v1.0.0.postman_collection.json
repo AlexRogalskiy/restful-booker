@@ -18,45 +18,50 @@
               "name": "Positive scenarios",
               "item": [
                 {
-                  "name": "1.1 - Create new token",
-                  "event": [
+                  "name": "1.1 Create new token",
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateToken] returns valid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\n\npm.test('[CreateToken] returns valid access token', () => {\n    pm.expect(jsonData).to.have.property('token');\n    pm.expect(jsonData.token).to.be.a('string');\n});\n\npm.test('[CreateToken] returns valid token type', () => {\n    pm.expect(jsonData.token).matches(/^[a-zA-Z0-9]{15}$/);\n});\n\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "insecureHTTPParser": false
-                  },
-                  "request": {
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\r\n    \"username\" : \"{{username}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
+                      "name": "1.1.1. - Create new token",
+                      "event": [
+                        {
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateToken] returns valid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\n\npm.test('[CreateToken] returns valid access token', () => {\n    pm.expect(jsonData).to.have.property('token');\n    pm.expect(jsonData.token).to.be.a('string');\n});\n\npm.test('[CreateToken] returns valid token type', () => {\n    pm.expect(jsonData.token).matches(/^[a-zA-Z0-9]{15}$/);\n});\n\n"
+                            ]
+                          }
                         }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/auth",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "auth"
-                      ]
-                    },
-                    "description": "Creates a new auth token to use for access to the PUT and DELETE /booking"
-                  },
-                  "response": []
+                      "protocolProfileBehavior": {
+                        "insecureHTTPParser": false
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\r\n    \"username\" : \"{{username}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/auth",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth"
+                          ]
+                        },
+                        "description": "Creates a new auth token to use for access to the PUT and DELETE /booking"
+                      },
+                      "response": []
+                    }
+                  ]
                 }
               ]
             },
@@ -65,153 +70,168 @@
               "item": [
                 {
                   "name": "1.1 - Create new token with bad credentials",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateToken] returns invalid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\n\npm.test('[CreateToken] returns valid bad credentials reason', () => {\n    pm.expect(jsonData).to.have.property('reason');\n    pm.expect(jsonData.reason).eq(\"Bad credentials\");\n});\n"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "utils.setupBody(pm, { username: \"test\", password: \"test\" });\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "insecureHTTPParser": false
-                  },
-                  "request": {
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\r\n    \"username\" : \"{{username}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
+                      "name": "1.1.1 - Create new token with bad credentials",
+                      "event": [
+                        {
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateToken] returns invalid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\n\npm.test('[CreateToken] returns valid bad credentials reason', () => {\n    pm.expect(jsonData).to.have.property('reason');\n    pm.expect(jsonData.reason).eq(\"Bad credentials\");\n});\n"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "utils.setupBody(pm, { username: \"test\", password: \"test\" });\r\n"
+                            ]
+                          }
                         }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/auth",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "auth"
-                      ]
-                    },
-                    "description": "Creates a new auth token to use for access to the PUT and DELETE /booking"
-                  },
-                  "response": []
+                      "protocolProfileBehavior": {
+                        "insecureHTTPParser": false
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\r\n    \"username\" : \"{{username}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/auth",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth"
+                          ]
+                        },
+                        "description": "Creates a new auth token to use for access to the PUT and DELETE /booking"
+                      },
+                      "response": []
+                    }
+                  ]
                 },
                 {
                   "name": "1.2 - Create new token with empty credentials",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateToken] returns invalid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\n\npm.test('[CreateToken] returns valid bad credentials', () => {\n    pm.expect(jsonData).to.have.property('reason');\n    pm.expect(jsonData.reason).eq(\"Bad credentials\");\n});\n"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "utils.setupBody(pm, { username: \"\", password: \"\" });\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "insecureHTTPParser": false
-                  },
-                  "request": {
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\r\n    \"username\" : \"{{username}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
+                      "name": "1.2.1 - Create new token with empty credentials",
+                      "event": [
+                        {
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateToken] returns invalid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\n\npm.test('[CreateToken] returns valid bad credentials', () => {\n    pm.expect(jsonData).to.have.property('reason');\n    pm.expect(jsonData.reason).eq(\"Bad credentials\");\n});\n"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "utils.setupBody(pm, { username: \"\", password: \"\" });\r\n"
+                            ]
+                          }
                         }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/auth",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "auth"
-                      ]
-                    },
-                    "description": "Creates a new auth token to use for access to the PUT and DELETE /booking"
-                  },
-                  "response": []
+                      "protocolProfileBehavior": {
+                        "insecureHTTPParser": false
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\r\n    \"username\" : \"{{username}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/auth",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth"
+                          ]
+                        },
+                        "description": "Creates a new auth token to use for access to the PUT and DELETE /booking"
+                      },
+                      "response": []
+                    }
+                  ]
                 },
                 {
                   "name": "1.3 - Create new token with partial credentials",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateToken] returns invalid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\n\npm.test('[CreateToken] returns valid bad credentials', () => {\n    pm.expect(jsonData).to.have.property('reason');\n    pm.expect(jsonData.reason).eq(\"Bad credentials\");\n});\n"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "utils.setupBody(pm, { username: \"admin\" }, true);"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "insecureHTTPParser": false
-                  },
-                  "request": {
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\r\n    \"username\" : \"{{username}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
+                      "name": "1.3.1 - Create new token with partial credentials",
+                      "event": [
+                        {
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateToken] returns invalid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\n\npm.test('[CreateToken] returns valid bad credentials', () => {\n    pm.expect(jsonData).to.have.property('reason');\n    pm.expect(jsonData.reason).eq(\"Bad credentials\");\n});\n"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "utils.setupBody(pm, { username: \"admin\" }, true);"
+                            ]
+                          }
                         }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/auth",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "auth"
-                      ]
-                    },
-                    "description": "Creates a new auth token to use for access to the PUT and DELETE /booking"
-                  },
-                  "response": []
+                      "protocolProfileBehavior": {
+                        "insecureHTTPParser": false
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\r\n    \"username\" : \"{{username}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/auth",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth"
+                          ]
+                        },
+                        "description": "Creates a new auth token to use for access to the PUT and DELETE /booking"
+                      },
+                      "response": []
+                    }
+                  ]
                 }
               ]
             }
@@ -1615,109 +1635,119 @@
                   "item": [
                     {
                       "name": "2.1.1 - Get booking by non-existing ID",
-                      "event": [
+                      "item": [
                         {
-                          "listen": "test",
-                          "script": {
-                            "type": "text/javascript",
-                            "exec": [
-                              "pm.test(\"[GetBookingId] returns valid not found [404] response\", () => {\n    pm.response.to.be.notFound;\n    pm.response.to.be.withBody;\n    pm.response.to.not.be.json;\n});\n\npm.collectionVariables.unset(\"bookingid\");"
-                            ]
-                          }
-                        },
-                        {
-                          "listen": "prerequest",
-                          "script": {
-                            "type": "text/javascript",
-                            "exec": [
-                              "utils.setupPathVariable(pm, \"bookingid\", 0);\r\nutils.setupHeader(pm, \"Accept\", \"application/json\");"
-                            ]
-                          }
-                        }
-                      ],
-                      "request": {
-                        "method": "GET",
-                        "header": [],
-                        "body": {
-                          "mode": "raw",
-                          "raw": "",
-                          "options": {
-                            "raw": {
-                              "language": "json"
-                            }
-                          }
-                        },
-                        "url": {
-                          "raw": "{{baseUrl}}/booking/:bookingid",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "booking",
-                            ":bookingid"
-                          ],
-                          "variable": [
+                          "name": "2.1.1.1 - Get booking by non-existing ID",
+                          "event": [
                             {
-                              "key": "bookingid",
-                              "value": "{{bookingid}}"
+                              "listen": "test",
+                              "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                  "pm.test(\"[GetBookingId] returns valid not found [404] response\", () => {\n    pm.response.to.be.notFound;\n    pm.response.to.be.withBody;\n    pm.response.to.not.be.json;\n});\n\npm.collectionVariables.unset(\"bookingid\");"
+                                ]
+                              }
+                            },
+                            {
+                              "listen": "prerequest",
+                              "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                  "utils.setupPathVariable(pm, \"bookingid\", 0);\r\nutils.setupHeader(pm, \"Accept\", \"application/json\");"
+                                ]
+                              }
                             }
-                          ]
+                          ],
+                          "request": {
+                            "method": "GET",
+                            "header": [],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "",
+                              "options": {
+                                "raw": {
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/booking/:bookingid",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "booking",
+                                ":bookingid"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "bookingid",
+                                  "value": "{{bookingid}}"
+                                }
+                              ]
+                            }
+                          },
+                          "response": []
                         }
-                      },
-                      "response": []
+                      ]
                     },
                     {
                       "name": "2.1.2 - Get booking by non-numeric ID",
-                      "event": [
+                      "item": [
                         {
-                          "listen": "test",
-                          "script": {
-                            "type": "text/javascript",
-                            "exec": [
-                              "pm.test(\"[GetBookingId] returns invalid not found [404] response\", () => {\n    pm.response.to.be.notFound;\n    pm.response.to.be.withBody;\n    pm.response.to.not.be.json;\n});\n\npm.collectionVariables.unset(\"bookingid\");"
-                            ]
-                          }
-                        },
-                        {
-                          "listen": "prerequest",
-                          "script": {
-                            "type": "text/javascript",
-                            "exec": [
-                              "utils.setupPathVariable(pm, \"bookingid\", utils.fixtures.generateString(15));\r\nutils.setupHeader(pm, \"Accept\", \"application/json\");"
-                            ]
-                          }
-                        }
-                      ],
-                      "request": {
-                        "method": "GET",
-                        "header": [],
-                        "body": {
-                          "mode": "raw",
-                          "raw": "",
-                          "options": {
-                            "raw": {
-                              "language": "json"
-                            }
-                          }
-                        },
-                        "url": {
-                          "raw": "{{baseUrl}}/booking/:bookingid",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "booking",
-                            ":bookingid"
-                          ],
-                          "variable": [
+                          "name": "2.1.2.1 - Get booking by non-numeric ID",
+                          "event": [
                             {
-                              "key": "bookingid",
-                              "value": "{{bookingid}}"
+                              "listen": "test",
+                              "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                  "pm.test(\"[GetBookingId] returns invalid not found [404] response\", () => {\n    pm.response.to.be.notFound;\n    pm.response.to.be.withBody;\n    pm.response.to.not.be.json;\n});\n\npm.collectionVariables.unset(\"bookingid\");"
+                                ]
+                              }
+                            },
+                            {
+                              "listen": "prerequest",
+                              "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                  "utils.setupPathVariable(pm, \"bookingid\", utils.fixtures.generateString(15));\r\nutils.setupHeader(pm, \"Accept\", \"application/json\");"
+                                ]
+                              }
                             }
-                          ]
+                          ],
+                          "request": {
+                            "method": "GET",
+                            "header": [],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "",
+                              "options": {
+                                "raw": {
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/booking/:bookingid",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "booking",
+                                ":bookingid"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "bookingid",
+                                  "value": "{{bookingid}}"
+                                }
+                              ]
+                            }
+                          },
+                          "response": []
                         }
-                      },
-                      "response": []
+                      ]
                     }
                   ],
                   "description": "Returns a specific booking in JSON format."
@@ -1727,109 +1757,119 @@
                   "item": [
                     {
                       "name": "2.2.1 - Get booking by non-existing ID",
-                      "event": [
+                      "item": [
                         {
-                          "listen": "test",
-                          "script": {
-                            "type": "text/javascript",
-                            "exec": [
-                              "pm.test(\"[GetBookingId] returns valid not found [404] response\", () => {\n    pm.response.to.be.notFound;\n    pm.response.to.be.withBody;\n    pm.response.to.not.be.json;\n});\n\npm.collectionVariables.unset(\"bookingid\");"
-                            ]
-                          }
-                        },
-                        {
-                          "listen": "prerequest",
-                          "script": {
-                            "type": "text/javascript",
-                            "exec": [
-                              "utils.setupPathVariable(pm, \"bookingid\", 0);\r\nutils.setupHeader(pm, \"Accept\", \"application/xml\");"
-                            ]
-                          }
-                        }
-                      ],
-                      "request": {
-                        "method": "GET",
-                        "header": [],
-                        "body": {
-                          "mode": "raw",
-                          "raw": "",
-                          "options": {
-                            "raw": {
-                              "language": "json"
-                            }
-                          }
-                        },
-                        "url": {
-                          "raw": "{{baseUrl}}/booking/:bookingid",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "booking",
-                            ":bookingid"
-                          ],
-                          "variable": [
+                          "name": "2.2.1.1 - Get booking by non-existing ID",
+                          "event": [
                             {
-                              "key": "bookingid",
-                              "value": "{{bookingid}}"
+                              "listen": "test",
+                              "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                  "pm.test(\"[GetBookingId] returns valid not found [404] response\", () => {\n    pm.response.to.be.notFound;\n    pm.response.to.be.withBody;\n    pm.response.to.not.be.json;\n});\n\npm.collectionVariables.unset(\"bookingid\");"
+                                ]
+                              }
+                            },
+                            {
+                              "listen": "prerequest",
+                              "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                  "utils.setupPathVariable(pm, \"bookingid\", 0);\r\nutils.setupHeader(pm, \"Accept\", \"application/xml\");"
+                                ]
+                              }
                             }
-                          ]
+                          ],
+                          "request": {
+                            "method": "GET",
+                            "header": [],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "",
+                              "options": {
+                                "raw": {
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/booking/:bookingid",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "booking",
+                                ":bookingid"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "bookingid",
+                                  "value": "{{bookingid}}"
+                                }
+                              ]
+                            }
+                          },
+                          "response": []
                         }
-                      },
-                      "response": []
+                      ]
                     },
                     {
                       "name": "2.2.2 - Get booking by non-numeric ID",
-                      "event": [
+                      "item": [
                         {
-                          "listen": "test",
-                          "script": {
-                            "type": "text/javascript",
-                            "exec": [
-                              "pm.test(\"[GetBookingId] returns invalid not found [404] response\", () => {\n    pm.response.to.be.notFound;\n    pm.response.to.be.withBody;\n    pm.response.to.not.be.json;\n});\n\npm.collectionVariables.unset(\"bookingid\");"
-                            ]
-                          }
-                        },
-                        {
-                          "listen": "prerequest",
-                          "script": {
-                            "type": "text/javascript",
-                            "exec": [
-                              "utils.setupPathVariable(pm, \"bookingid\", utils.fixtures.generateString(15));\r\nutils.setupHeader(pm, \"Accept\", \"application/xml\");"
-                            ]
-                          }
-                        }
-                      ],
-                      "request": {
-                        "method": "GET",
-                        "header": [],
-                        "body": {
-                          "mode": "raw",
-                          "raw": "",
-                          "options": {
-                            "raw": {
-                              "language": "json"
-                            }
-                          }
-                        },
-                        "url": {
-                          "raw": "{{baseUrl}}/booking/:bookingid",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "booking",
-                            ":bookingid"
-                          ],
-                          "variable": [
+                          "name": "2.2.2 - Get booking by non-numeric ID",
+                          "event": [
                             {
-                              "key": "bookingid",
-                              "value": "{{bookingid}}"
+                              "listen": "test",
+                              "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                  "pm.test(\"[GetBookingId] returns invalid not found [404] response\", () => {\n    pm.response.to.be.notFound;\n    pm.response.to.be.withBody;\n    pm.response.to.not.be.json;\n});\n\npm.collectionVariables.unset(\"bookingid\");"
+                                ]
+                              }
+                            },
+                            {
+                              "listen": "prerequest",
+                              "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                  "utils.setupPathVariable(pm, \"bookingid\", utils.fixtures.generateString(15));\r\nutils.setupHeader(pm, \"Accept\", \"application/xml\");"
+                                ]
+                              }
                             }
-                          ]
+                          ],
+                          "request": {
+                            "method": "GET",
+                            "header": [],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "",
+                              "options": {
+                                "raw": {
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/booking/:bookingid",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "booking",
+                                ":bookingid"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "bookingid",
+                                  "value": "{{bookingid}}"
+                                }
+                              ]
+                            }
+                          },
+                          "response": []
                         }
-                      },
-                      "response": []
+                      ]
                     }
                   ],
                   "description": "Returns a specific booking in XML format."
@@ -1847,243 +1887,263 @@
               "item": [
                 {
                   "name": "3.1 - Create new booking",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateBooking] returns valid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains property [bookingid]', () => {\r\n    pm.expect(jsonData).to.have.property('bookingid');\r\n    pm.expect(jsonData.bookingid).to.be.a('number');\r\n});\r\n\r\npm.test('[CreateBooking] response contains property [booking]', () => {\r\n    pm.expect(jsonData).to.have.property('booking');\r\n    pm.expect(jsonData.booking).to.be.an('object');\r\n    pm.expect(jsonData.booking).eql(bookingData);\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "const bookingData = utils.fixtures.generateBooking();\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "disableCookies": false,
-                    "disabledSystemHeaders": {},
-                    "followRedirects": true,
-                    "protocolVersion": "auto",
-                    "strictSSL": false
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
+                      "name": "3.1.1 - Create new booking",
+                      "event": [
                         {
-                          "key": "token",
-                          "value": "{{accessToken}}",
-                          "type": "string"
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateBooking] returns valid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains property [bookingid]', () => {\r\n    pm.expect(jsonData).to.have.property('bookingid');\r\n    pm.expect(jsonData.bookingid).to.be.a('number');\r\n});\r\n\r\npm.test('[CreateBooking] response contains property [booking]', () => {\r\n    pm.expect(jsonData).to.have.property('booking');\r\n    pm.expect(jsonData.booking).to.be.an('object');\r\n    pm.expect(jsonData.booking).eql(bookingData);\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "const bookingData = utils.fixtures.generateBooking();\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                            ]
+                          }
                         }
-                      ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{{bookingData}}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/booking",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "booking"
-                      ]
+                      "protocolProfileBehavior": {
+                        "disableCookies": false,
+                        "disabledSystemHeaders": {},
+                        "followRedirects": true,
+                        "protocolVersion": "auto",
+                        "strictSSL": false
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{accessToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{{bookingData}}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking"
+                          ]
+                        }
+                      },
+                      "response": []
                     }
-                  },
-                  "response": []
+                  ]
                 },
                 {
                   "name": "3.2 - Create new booking with nullable property additionalneeds",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateBooking] returns valid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\n\r\npm.test('[CreateBooking] response contains nullable property [additionalneeds]', () => {\r\n    pm.expect(jsonData.booking).to.have.property('additionalneeds');\r\n    pm.expect(jsonData.booking.additionalneeds).is.null;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "const updatedBookingData = {\r\n    \"additionalneeds\" : null\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "disabledSystemHeaders": {}
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
+                      "name": "3.2.1 - Create new booking with nullable property additionalneeds",
+                      "event": [
                         {
-                          "key": "token",
-                          "value": "{{accessToken}}",
-                          "type": "string"
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateBooking] returns valid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\n\r\npm.test('[CreateBooking] response contains nullable property [additionalneeds]', () => {\r\n    pm.expect(jsonData.booking).to.have.property('additionalneeds');\r\n    pm.expect(jsonData.booking.additionalneeds).is.null;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "const updatedBookingData = {\r\n    \"additionalneeds\" : null\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                            ]
+                          }
                         }
-                      ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{{bookingData}}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/booking",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "booking"
-                      ]
+                      "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{accessToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{{bookingData}}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking"
+                          ]
+                        }
+                      },
+                      "response": []
                     }
-                  },
-                  "response": []
+                  ]
                 },
                 {
                   "name": "3.3 - Create new booking with missing property additionalneeds",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateBooking] returns valid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response not contains property [additionalneeds]', () => {\r\n    pm.expect(jsonData.booking).to.not.have.property('additionalneeds');\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "const bookingData = utils.fixtures.generateBooking();\r\ndelete bookingData.additionalneeds;\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "disabledSystemHeaders": {}
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
+                      "name": "3.3.1 - Create new booking with missing property additionalneeds",
+                      "event": [
                         {
-                          "key": "token",
-                          "value": "{{accessToken}}",
-                          "type": "string"
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateBooking] returns valid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response not contains property [additionalneeds]', () => {\r\n    pm.expect(jsonData.booking).to.not.have.property('additionalneeds');\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "const bookingData = utils.fixtures.generateBooking();\r\ndelete bookingData.additionalneeds;\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                            ]
+                          }
                         }
-                      ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{{bookingData}}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/booking",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "booking"
-                      ]
+                      "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{accessToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{{bookingData}}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking"
+                          ]
+                        }
+                      },
+                      "response": []
                     }
-                  },
-                  "response": []
+                  ]
                 },
                 {
                   "name": "3.4 - Create new booking with empty property additionalneeds",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateBooking] returns valid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains empty property [additionalneeds]', () => {\r\n    pm.expect(jsonData.booking).to.have.property('additionalneeds');\r\n    pm.expect(jsonData.booking.additionalneeds).is.empty;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "const updatedBookingData = {\r\n    \"additionalneeds\" : \"\"\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "disabledSystemHeaders": {}
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
+                      "name": "3.4.1 - Create new booking with empty property additionalneeds",
+                      "event": [
                         {
-                          "key": "token",
-                          "value": "{{accessToken}}",
-                          "type": "string"
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateBooking] returns valid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains empty property [additionalneeds]', () => {\r\n    pm.expect(jsonData.booking).to.have.property('additionalneeds');\r\n    pm.expect(jsonData.booking.additionalneeds).is.empty;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "const updatedBookingData = {\r\n    \"additionalneeds\" : \"\"\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                            ]
+                          }
                         }
-                      ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{{bookingData}}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/booking",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "booking"
-                      ]
+                      "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{accessToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{{bookingData}}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking"
+                          ]
+                        }
+                      },
+                      "response": []
                     }
-                  },
-                  "response": []
+                  ]
                 }
               ]
             },
@@ -2092,888 +2152,963 @@
               "item": [
                 {
                   "name": "3.1 - Create new booking with nullable property firstname",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateBooking] returns invalid Internal server Error [500] response\", () => {\r\n    pm.response.to.be.serverError;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.not.be.json;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "const updatedBookingData = {\r\n    \"firstname\" : null\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "disabledSystemHeaders": {}
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
+                      "name": "3.1.1 - Create new booking with nullable property firstname",
+                      "event": [
                         {
-                          "key": "token",
-                          "value": "{{accessToken}}",
-                          "type": "string"
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateBooking] returns invalid Internal server Error [500] response\", () => {\r\n    pm.response.to.be.serverError;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.not.be.json;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "const updatedBookingData = {\r\n    \"firstname\" : null\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                            ]
+                          }
                         }
-                      ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{{bookingData}}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/booking",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "booking"
-                      ]
+                      "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{accessToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{{bookingData}}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking"
+                          ]
+                        }
+                      },
+                      "response": []
                     }
-                  },
-                  "response": []
+                  ]
                 },
                 {
                   "name": "3.2 - Create new booking with empty property firstname",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateBooking] returns invalid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains empty property [booking.firstname]', () => {\r\n    pm.expect(jsonData.booking).to.have.property('firstname');\r\n    pm.expect(jsonData.booking.firstname).is.empty;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "const updatedBookingData = {\r\n    \"firstname\" : \"\"\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "disabledSystemHeaders": {}
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
+                      "name": "3.2.1 - Create new booking with empty property firstname",
+                      "event": [
                         {
-                          "key": "token",
-                          "value": "{{accessToken}}",
-                          "type": "string"
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateBooking] returns invalid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains empty property [booking.firstname]', () => {\r\n    pm.expect(jsonData.booking).to.have.property('firstname');\r\n    pm.expect(jsonData.booking.firstname).is.empty;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "const updatedBookingData = {\r\n    \"firstname\" : \"\"\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                            ]
+                          }
                         }
-                      ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{{bookingData}}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/booking",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "booking"
-                      ]
+                      "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{accessToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{{bookingData}}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking"
+                          ]
+                        }
+                      },
+                      "response": []
                     }
-                  },
-                  "response": []
+                  ]
                 },
                 {
                   "name": "3.3 - Create new booking with nullable property lastname",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateBooking] returns invalid Internal server Error [500] response\", () => {\r\n    pm.response.to.be.serverError;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.not.be.json;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "const updatedBookingData = {\r\n    \"lastname\" : null\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "disabledSystemHeaders": {}
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
+                      "name": "3.3.1 - Create new booking with nullable property lastname",
+                      "event": [
                         {
-                          "key": "token",
-                          "value": "{{accessToken}}",
-                          "type": "string"
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateBooking] returns invalid Internal server Error [500] response\", () => {\r\n    pm.response.to.be.serverError;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.not.be.json;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "const updatedBookingData = {\r\n    \"lastname\" : null\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                            ]
+                          }
                         }
-                      ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{{bookingData}}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/booking",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "booking"
-                      ]
+                      "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{accessToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{{bookingData}}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking"
+                          ]
+                        }
+                      },
+                      "response": []
                     }
-                  },
-                  "response": []
+                  ]
                 },
                 {
                   "name": "3.4 - Create new booking with empty property lastname",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateBooking] returns invalid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains empty property [booking.lastname]', () => {\r\n    pm.expect(jsonData.booking).to.have.property('lastname');\r\n    pm.expect(jsonData.booking.lastname).is.empty;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");\r\n"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "const updatedBookingData = {\r\n    \"lastname\" : \"\"\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "disabledSystemHeaders": {}
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
+                      "name": "3.4.1 - Create new booking with empty property lastname",
+                      "event": [
                         {
-                          "key": "token",
-                          "value": "{{accessToken}}",
-                          "type": "string"
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateBooking] returns invalid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains empty property [booking.lastname]', () => {\r\n    pm.expect(jsonData.booking).to.have.property('lastname');\r\n    pm.expect(jsonData.booking.lastname).is.empty;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");\r\n"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "const updatedBookingData = {\r\n    \"lastname\" : \"\"\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                            ]
+                          }
                         }
-                      ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{{bookingData}}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/booking",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "booking"
-                      ]
+                      "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{accessToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{{bookingData}}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking"
+                          ]
+                        }
+                      },
+                      "response": []
                     }
-                  },
-                  "response": []
+                  ]
                 },
                 {
                   "name": "3.5 - Create new booking with nullable property totalprice",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateBooking] returns invalid Internal server Error [500] response\", () => {\r\n    pm.response.to.be.serverError;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.not.be.json;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "const updatedBookingData = {\r\n    \"totalprice\" : null\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "disabledSystemHeaders": {}
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
+                      "name": "3.5.1 - Create new booking with nullable property totalprice",
+                      "event": [
                         {
-                          "key": "token",
-                          "value": "{{accessToken}}",
-                          "type": "string"
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateBooking] returns invalid Internal server Error [500] response\", () => {\r\n    pm.response.to.be.serverError;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.not.be.json;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "const updatedBookingData = {\r\n    \"totalprice\" : null\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                            ]
+                          }
                         }
-                      ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{{bookingData}}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/booking",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "booking"
-                      ]
+                      "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{accessToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{{bookingData}}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking"
+                          ]
+                        }
+                      },
+                      "response": []
                     }
-                  },
-                  "response": []
+                  ]
                 },
                 {
                   "name": "3.6 - Create new booking with negative property totalprice",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateBooking] returns invalid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains negative property [booking.totalprice]', () => {\r\n    pm.expect(jsonData.booking).to.have.property('totalprice');\r\n    pm.expect(jsonData.booking.totalprice).is.eq(bookingData.booking.totalprice);\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "const updatedBookingData = {\r\n    \"totalprice\" : utils.fixtures.generateInt(-200, -100),\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "disabledSystemHeaders": {}
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
+                      "name": "3.6.1 - Create new booking with negative property totalprice",
+                      "event": [
                         {
-                          "key": "token",
-                          "value": "{{accessToken}}",
-                          "type": "string"
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateBooking] returns invalid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains negative property [booking.totalprice]', () => {\r\n    pm.expect(jsonData.booking).to.have.property('totalprice');\r\n    pm.expect(jsonData.booking.totalprice).is.eq(bookingData.booking.totalprice);\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "const updatedBookingData = {\r\n    \"totalprice\" : utils.fixtures.generateInt(-200, -100),\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                            ]
+                          }
                         }
-                      ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{{bookingData}}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/booking",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "booking"
-                      ]
+                      "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{accessToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{{bookingData}}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking"
+                          ]
+                        }
+                      },
+                      "response": []
                     }
-                  },
-                  "response": []
+                  ]
                 },
                 {
                   "name": "3.7 - Create new booking with nullable property depositpaid",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateBooking] returns invalid Internal server Error [500] response\", () => {\r\n    pm.response.to.be.serverError;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.not.be.json;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "const updatedBookingData = {\r\n    \"depositpaid\" : null\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "disabledSystemHeaders": {}
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
+                      "name": "3.7.1 - Create new booking with nullable property depositpaid",
+                      "event": [
                         {
-                          "key": "token",
-                          "value": "{{accessToken}}",
-                          "type": "string"
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateBooking] returns invalid Internal server Error [500] response\", () => {\r\n    pm.response.to.be.serverError;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.not.be.json;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "const updatedBookingData = {\r\n    \"depositpaid\" : null\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                            ]
+                          }
                         }
-                      ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{{bookingData}}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/booking",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "booking"
-                      ]
+                      "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{accessToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{{bookingData}}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking"
+                          ]
+                        }
+                      },
+                      "response": []
                     }
-                  },
-                  "response": []
+                  ]
                 },
                 {
                   "name": "3.8 - Create new booking with nullable property bookingdates",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateBooking] returns invalid Internal server Error [500] response\", () => {\r\n    pm.response.to.be.serverError;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.not.be.json;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "const updatedBookingData = {\r\n    \"bookingdates\" : null\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "disabledSystemHeaders": {}
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
+                      "name": "3.8.1 - Create new booking with nullable property bookingdates",
+                      "event": [
                         {
-                          "key": "token",
-                          "value": "{{accessToken}}",
-                          "type": "string"
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateBooking] returns invalid Internal server Error [500] response\", () => {\r\n    pm.response.to.be.serverError;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.not.be.json;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "const updatedBookingData = {\r\n    \"bookingdates\" : null\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                            ]
+                          }
                         }
-                      ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{{bookingData}}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/booking",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "booking"
-                      ]
+                      "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{accessToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{{bookingData}}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking"
+                          ]
+                        }
+                      },
+                      "response": []
                     }
-                  },
-                  "response": []
+                  ]
                 },
                 {
                   "name": "3.9 - Create new booking with bookingdates.checkin after bookingdates.checkout",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateBooking] returns invalid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains invalid property [booking.bookingdates.checkin] that is after [booking.bookingdates.checkout]', () => {\r\n    pm.expect(jsonData.booking).to.have.property('bookingdates');\r\n    pm.expect(jsonData.booking.bookingdates).to.be.an('object');\r\n    pm.expect(jsonData.booking.bookingdates.chekin).is.eq(jsonData.booking.bookingdates.chekin);\r\n    pm.expect(jsonData.booking.bookingdates.chekout).is.eq(jsonData.booking.bookingdates.chekout);\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "const date = utils.fixtures.generateFutureDate();\r\nconst checkout = utils.formatDate(date);\r\nconst checkin = utils.formatDate(date.add(utils.fixtures.generateInt(1, 30), 'days'));\r\n\r\nconst updatedBookingData = {\r\n    \"bookingdates\" : {\r\n        \"checkin\" : checkin,\r\n        \"checkout\" : checkout\r\n    }\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "disabledSystemHeaders": {}
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
+                      "name": "3.9.1 - Create new booking with bookingdates.checkin after bookingdates.checkout",
+                      "event": [
                         {
-                          "key": "token",
-                          "value": "{{accessToken}}",
-                          "type": "string"
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateBooking] returns invalid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains invalid property [booking.bookingdates.checkin] that is after [booking.bookingdates.checkout]', () => {\r\n    pm.expect(jsonData.booking).to.have.property('bookingdates');\r\n    pm.expect(jsonData.booking.bookingdates).to.be.an('object');\r\n    pm.expect(jsonData.booking.bookingdates.chekin).is.eq(jsonData.booking.bookingdates.chekin);\r\n    pm.expect(jsonData.booking.bookingdates.chekout).is.eq(jsonData.booking.bookingdates.chekout);\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "const date = utils.fixtures.generateFutureDate();\r\nconst checkout = utils.formatDate(date);\r\nconst checkin = utils.formatDate(date.add(utils.fixtures.generateInt(1, 30), 'days'));\r\n\r\nconst updatedBookingData = {\r\n    \"bookingdates\" : {\r\n        \"checkin\" : checkin,\r\n        \"checkout\" : checkout\r\n    }\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                            ]
+                          }
                         }
-                      ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{{bookingData}}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/booking",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "booking"
-                      ]
+                      "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{accessToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{{bookingData}}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking"
+                          ]
+                        }
+                      },
+                      "response": []
                     }
-                  },
-                  "response": []
+                  ]
                 },
                 {
                   "name": "3.10 - Create new booking with bookingdates.checkin same as bookingdates.checkout",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateBooking] returns invalid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains invalid property [booking.bookingdates.checkin] that is same as [booking.bookingdates.checkout]', () => {\r\n    pm.expect(jsonData.booking).to.have.property('bookingdates');\r\n    pm.expect(jsonData.booking.bookingdates).to.be.an('object');\r\n    pm.expect(jsonData.booking.bookingdates.chekin).is.eq(jsonData.booking.bookingdates.chekin);\r\n    pm.expect(jsonData.booking.bookingdates.chekout).is.eq(jsonData.booking.bookingdates.chekout);\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "const date = utils.fixtures.generateFutureDate();\r\nconst checkin = utils.formatDate(date);\r\nconst checkout = checkin;\r\n\r\nconst updatedBookingData = {\r\n    \"bookingdates\" : {\r\n        \"checkin\" : checkin,\r\n        \"checkout\" : checkout\r\n    }\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "disabledSystemHeaders": {}
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
+                      "name": "3.10.1 - Create new booking with bookingdates.checkin same as bookingdates.checkout",
+                      "event": [
                         {
-                          "key": "token",
-                          "value": "{{accessToken}}",
-                          "type": "string"
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateBooking] returns invalid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains invalid property [booking.bookingdates.checkin] that is same as [booking.bookingdates.checkout]', () => {\r\n    pm.expect(jsonData.booking).to.have.property('bookingdates');\r\n    pm.expect(jsonData.booking.bookingdates).to.be.an('object');\r\n    pm.expect(jsonData.booking.bookingdates.chekin).is.eq(jsonData.booking.bookingdates.chekin);\r\n    pm.expect(jsonData.booking.bookingdates.chekout).is.eq(jsonData.booking.bookingdates.chekout);\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "const date = utils.fixtures.generateFutureDate();\r\nconst checkin = utils.formatDate(date);\r\nconst checkout = checkin;\r\n\r\nconst updatedBookingData = {\r\n    \"bookingdates\" : {\r\n        \"checkin\" : checkin,\r\n        \"checkout\" : checkout\r\n    }\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                            ]
+                          }
                         }
-                      ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{{bookingData}}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/booking",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "booking"
-                      ]
+                      "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{accessToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{{bookingData}}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking"
+                          ]
+                        }
+                      },
+                      "response": []
                     }
-                  },
-                  "response": []
+                  ]
                 },
                 {
                   "name": "3.11 - Create new booking with nullable property bookingdates checkin",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateBooking] returns invalid Internal server Error [500] response\", () => {\r\n    pm.response.to.be.serverError;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.not.be.json;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "const updatedBookingData = {\r\n    \"bookingdates\" : {\r\n        \"checkin\" : null\r\n    }\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "disabledSystemHeaders": {}
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
+                      "name": "3.11.1 - Create new booking with nullable property bookingdates checkin",
+                      "event": [
                         {
-                          "key": "token",
-                          "value": "{{accessToken}}",
-                          "type": "string"
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateBooking] returns invalid Internal server Error [500] response\", () => {\r\n    pm.response.to.be.serverError;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.not.be.json;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "const updatedBookingData = {\r\n    \"bookingdates\" : {\r\n        \"checkin\" : null\r\n    }\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                            ]
+                          }
                         }
-                      ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{{bookingData}}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/booking",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "booking"
-                      ]
+                      "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{accessToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{{bookingData}}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking"
+                          ]
+                        }
+                      },
+                      "response": []
                     }
-                  },
-                  "response": []
+                  ]
                 },
                 {
                   "name": "3.12- Create new booking with nullable property bookingdates checkout",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateBooking] returns invalid Internal server Error [500] response\", () => {\r\n    pm.response.to.be.serverError;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.not.be.json;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "const updatedBookingData = {\r\n    \"bookingdates\" : {\r\n        \"checkout\" : null\r\n    }\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "disabledSystemHeaders": {}
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
+                      "name": "3.12.1- Create new booking with nullable property bookingdates checkout",
+                      "event": [
                         {
-                          "key": "token",
-                          "value": "{{accessToken}}",
-                          "type": "string"
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateBooking] returns invalid Internal server Error [500] response\", () => {\r\n    pm.response.to.be.serverError;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.not.be.json;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "const updatedBookingData = {\r\n    \"bookingdates\" : {\r\n        \"checkout\" : null\r\n    }\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                            ]
+                          }
                         }
-                      ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{{bookingData}}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/booking",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "booking"
-                      ]
+                      "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{accessToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{{bookingData}}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking"
+                          ]
+                        }
+                      },
+                      "response": []
                     }
-                  },
-                  "response": []
+                  ]
                 },
                 {
                   "name": "3.13 - Create new booking with empty property bookingdates.checkin and bookingdates checkout",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateBooking] returns invalid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains empty properties [booking.bookingdates.checkin] and [booking.bookingdates.checkout]', () => {\r\n    pm.expect(jsonData.booking).to.have.property('bookingdates');\r\n    pm.expect(jsonData.booking.bookingdates).to.be.an('object');\r\n    pm.expect(jsonData.booking.bookingdates.chekin).is.undefined;\r\n    pm.expect(jsonData.booking.bookingdates.chekout).is.undefined;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "const updatedBookingData = {\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"\",\r\n        \"checkout\": \"\"\r\n    }\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "disabledSystemHeaders": {}
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
+                      "name": "3.13.1 - Create new booking with empty property bookingdates.checkin and bookingdates checkout",
+                      "event": [
                         {
-                          "key": "token",
-                          "value": "{{accessToken}}",
-                          "type": "string"
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateBooking] returns invalid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains empty properties [booking.bookingdates.checkin] and [booking.bookingdates.checkout]', () => {\r\n    pm.expect(jsonData.booking).to.have.property('bookingdates');\r\n    pm.expect(jsonData.booking.bookingdates).to.be.an('object');\r\n    pm.expect(jsonData.booking.bookingdates.chekin).is.undefined;\r\n    pm.expect(jsonData.booking.bookingdates.chekout).is.undefined;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "const updatedBookingData = {\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"\",\r\n        \"checkout\": \"\"\r\n    }\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                            ]
+                          }
                         }
-                      ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{{bookingData}}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/booking",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "booking"
-                      ]
+                      "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{accessToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{{bookingData}}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking"
+                          ]
+                        }
+                      },
+                      "response": []
                     }
-                  },
-                  "response": []
+                  ]
                 },
                 {
                   "name": "3.14 - Create new booking with empty property bookingdates checkin",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateBooking] returns invalid Internal server Error [500] response\", () => {\r\n    pm.response.to.be.serverError;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.not.be.json;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "const updatedBookingData = {\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"\",\r\n    }\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "disabledSystemHeaders": {}
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
+                      "name": "3.14.1 - Create new booking with empty property bookingdates checkin",
+                      "event": [
                         {
-                          "key": "token",
-                          "value": "{{accessToken}}",
-                          "type": "string"
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateBooking] returns invalid Internal server Error [500] response\", () => {\r\n    pm.response.to.be.serverError;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.not.be.json;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "const updatedBookingData = {\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"\",\r\n    }\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                            ]
+                          }
                         }
-                      ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{{bookingData}}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/booking",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "booking"
-                      ]
+                      "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{accessToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{{bookingData}}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking"
+                          ]
+                        }
+                      },
+                      "response": []
                     }
-                  },
-                  "response": []
+                  ]
                 },
                 {
                   "name": "3.15 - Create new booking with empty property bookingdates.checkout",
-                  "event": [
+                  "item": [
                     {
-                      "listen": "test",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "pm.test(\"[CreateBooking] returns invalid Internal server Error [500] response\", () => {\r\n    pm.response.to.be.serverError;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.not.be.json;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
-                        ]
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "type": "text/javascript",
-                        "exec": [
-                          "const updatedBookingData = {\r\n    \"bookingdates\" : {\r\n        \"checkout\" : \"\",\r\n    }\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
-                        ]
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "disabledSystemHeaders": {}
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": [
+                      "name": "3.15.1 - Create new booking with empty property bookingdates.checkout",
+                      "event": [
                         {
-                          "key": "token",
-                          "value": "{{accessToken}}",
-                          "type": "string"
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateBooking] returns invalid Internal server Error [500] response\", () => {\r\n    pm.response.to.be.serverError;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.not.be.json;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "const updatedBookingData = {\r\n    \"bookingdates\" : {\r\n        \"checkout\" : \"\",\r\n    }\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                            ]
+                          }
                         }
-                      ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{{bookingData}}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/booking",
-                      "host": [
-                        "{{baseUrl}}"
                       ],
-                      "path": [
-                        "booking"
-                      ]
+                      "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{accessToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{{bookingData}}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking"
+                          ]
+                        }
+                      },
+                      "response": []
                     }
-                  },
-                  "response": []
+                  ]
                 }
               ]
             }
@@ -4355,7 +4490,7 @@
           "description": "Deletes a booking from the API.\n\n> Requires an authorization token to be set in the header or a Basic auth header."
         }
       ],
-      "description": "Provides operations on booking flow to create, read, update and delete booking resources.\n\n- **1 - Getting bookings**\n    \n\nReturns the IDs of all the bookings that exist within the API. Can take optional query strings to search and return a subset of booking ids.\n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_001 | 1.1 | Getting bookings | Returns the IDs of all the bookings with OK \\[200\\] status | Returns the IDs of all the bookings with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_002 | 1.2.1 | Getting bookigns by existing firstname | Returns the IDs of all the bookings filtered by \"firstname\" query parameter with OK \\[200\\] status | Returns the IDs of all the bookings filtered by \"firstname\" query parameter with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_002 | 1.2.2 | Getting bookigns by non-existing firstname | Returns an empty array with OK \\[200\\] status | Returns an empty array with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_003 | 1.3.1 | Getting bookings by existing lastname | Returns the IDs of all the bookings filtered by \"lastname\" query parameter with OK \\[200\\] status | Returns the IDs of all the bookings filtered by \"lastname\" query parameter with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_003 | 1.3.2 | Getting bookings by non-existing lastname | Returns an empty array with OK \\[200\\] status | Returns an empty array with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_004 | 1.4 | Getting bookings after checkin date | Returns the IDs of all the bookings filtered after booking \"checkin\" date query parameter with OK \\[200\\] status | Returns the IDs of all the bookings filtered after booking \"checkin\" date query parameter with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_005 | 1.5 | Getting bookings after checkout date | Returns the IDs of all the bookings filtered after booking \"checkout\" date query parameter with OK \\[200\\] status | Returns the IDs of all the bookings filtered after booking \"checkout\" date query parameter with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_006 | 1.6.1 | Getting bookings by existing firstname and lastname | Returns the IDs of all the bookings filtered by \"firstname\" and \"lastname\" query parameters with OK \\[200\\] status | Returns the IDs of all the bookings filtered by \"firstname\" and \"lastname\" query parameters with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_006 | 1.6.2 | Getting bookings by existing firstname and non-existing lastname | Returns an empty array with OK \\[200\\] status | Returns an empty array with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_006 | 1.6.3 | Getting bookings by non-existing firstname and existing lastname | Returns an empty array with OK \\[200\\] status | Returns an empty array with OK \\[200\\] status | PASS |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_007 | 1.1 | Getting bookings by invalid checkin date | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_008 | 1.2 | Getting bookings by invalid checkin date format | Returns the IDs of all the bookings after the specified checkin date with invalid format and OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_009 | 1.3 | Getting bookings by invalid checkout date | Returns Internal Server Error \\[500\\] | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_010 | 1.4 | Getting bookings by invalid checkout date format | Returns the IDs of all the bookings after the specified checkout date with invalid format and OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n\n- **2 - Getting booking**\n    \n\nReturns a specific booking based upon the booking ID provided.\n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_011 | 2.1 | Getting booking in JSON format | Returns a specific booking based upon the booking ID provided with OK \\[200\\] status | Returns a specific booking based upon the booking ID provided with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_012 | 2.2 | Getting booking in XML format | Returns a specific booking based upon the booking ID provided with OK \\[200\\] status | Returns a specific booking based upon the booking ID provided with OK \\[200\\] status | PASS |\n\n###### Negative scenarios\n\n| **#** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_013 | 2.1.1 | Get booking by non-existing ID in JSON format | Returns Not Found \\[404\\] status | Returns Not Found \\[404\\] status | PASS |\n| TC_FT_BOOKING_014 | 2.1.2 | Get booking by non-numeric ID in JSON format | Returns Not Found \\[404\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_015 | 2.2.1 | Get booking by non-existing ID in XML format | Returns Not Found \\[404\\] status | Returns Not Found \\[404\\] status | PASS |\n| TC_FT_BOOKING_016 | 2.2.2 | Get booking by non-numeric ID in XML format | Returns Not Found \\[404\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n\n- **3 - Creating new booking**\n    \n\nCreates a new booking.\n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_017 | 3.1 | Create new booking | Returns new booking with OK \\[200\\] status | Returns new booking with Created \\[201\\] status | FAIL |\n| TC_FT_BOOKING_018 | 3.2 | Create new booking with nullable property additionalneeds | Returns new booking with nullable property \"additionalneeds\" with OK \\[200\\] status | Returns new booking with nullable property \"additionalneeds\" with Created \\[201\\] status | FAIL |\n| TC_FT_BOOKING_019 | 3.3 | Create new booking with missing property additionalneeds | Returns new booking with missing property \"additionalneeds\" with OK \\[200\\] status | Returns new booking with missing property \"additionalneeds\" with Created \\[201\\] status | FAIL |\n| TC_FT_BOOKING_020 | 3.4 | Create new booking with empty property additionalneeds | Returns new booking with empty property \"additionalneeds\" with OK \\[200\\] status | Returns new booking with empty property \"additionalneeds\" with Created \\[201\\] status | FAIL |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_021 | 3.1 | Create new booking with nullable property firstname | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_022 | 3.2 | Create new booking with empty property firstname | Returns new booking with empty property \"firstname\" with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_023 | 3.3 | Create new booking with nullable lastname | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_024 | 3.4 | Create new booking with empty property lastname | Returns new booking with empty property \"lastname\" with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_025 | 3.5 | Create new booking with nullable property totalprice | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_026 | 3.6 | Create new booking with negative property totalprice | Returns new booking with negative property \"totalprice\" with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_027 | 3.7 | Create new booking with nullable property depositpaid | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_028 | 3.8 | Create new booking with nullable property bookindates | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_029 | 3.9 | Create new booking with booking checkin date after booking checkout date | Returns new booking with booking checkin date after booking checkout date with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_030 | 3.10 | Create new booking with booking checkin date same as booking checkout date | Returns new booking with booking checkin date same as booking checkout date with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_031 | 3.11 | Create new booking with nullable property booking checkin date | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_032 | 3.12 | Create new booking with nullable property booking checkout date | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_033 | 3.13 | Create new booking with empty properties booking checkin and checkout dates | Returns new booking with empty properties booking checkin and checkout dates with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_034 | 3.14 | Create new booking with empty property booking checkin date | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_035 | 3.15 | Create new booking with emtpy property booking checkout date | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n\n- **4 - Updating booking**\n    \n\nUpdates current booking.\n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_036 | 4.1 | Update booking | Returns updated current booking with OK \\[200\\] status | Returns updated current booking with OK \\[200\\] status | PASS |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_037 | 4.1 | Update booking by non-existing ID | Returns method not allowed \\[405\\] status | Returns Not Found \\[404\\] status | FAIL |\n| TC_FT_BOOKING_038 | 4.2 | Update booking by non-numeric ID | Returns method not allowed \\[405\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_039 | 4.3 | Update booking by ID with missing auth header | Returns Forbidden \\[403\\] status | Returns Unauthorized \\[401\\] status | FAIL |\n| TC_FT_BOOKING_040 | 4.4 | Update booking by ID with invalid auth token | Returns Forbidden \\[403\\] status | Returns Forbidden \\[403\\] status | PASS |\n\n- **5 - Updating booking partially**\n    \n\nUpdates booking partially.\n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_041 | 5.1 | Update partially booking | Returns updated current booking with a partial payload with OK \\[200\\] status | Returns updated current booking with a partial payload with OK \\[200\\] status | PASS |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_042 | 5.1 | Update partially booking by non-existing ID | Returns method not allowed \\[405\\] status | Returns Not Found \\[404\\] status | FAIL |\n| TC_FT_BOOKING_043 | 5.2 | Update partially booking by non-numeric ID | Returns method not allowed \\[405\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_044 | 5.3 | Update partially booking by ID with missing auth header | Returns Forbidden \\[403\\] status | Returns Unauthorized \\[401\\] status | FAIL |\n| TC_FT_BOOKING_045 | 5.4 | Update partially booking by ID with invalid auth token | Returns Forbidden \\[403\\] status | Returns Forbidden \\[403\\] status | PASS |\n\n- **6 - Deleting booking**\n    \n\nDeletes a booking from the API.\n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_046 | 6.1 | Delete booking | Returns Created \\[201\\] status  <br>Deletes a booking from the API | Returns OK \\[200\\] status  <br>Deletes a booking from the API | FAIL |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_047 | 6.1 | Delete booking by non-existing ID | Returns method not allowed \\[405\\] status | Returns Not Found \\[404\\] status | FAIL |\n| TC_FT_BOOKING_048 | 6.2 | Delete booking by non-numeric ID | Returns method not allowed \\[405\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_049 | 6.3 | Delete booking by ID with missing auth header | Returns Forbidden \\[403\\] status | Returns Unauthorized \\[401\\] status | FAIL |\n| TC_FT_BOOKING_050 | 6.4 | Delete booking by ID with invalid auth token | Returns Forbidden \\[403\\] status | Returns Forbidden \\[403\\] status | PASS |",
+      "description": "Provides operations on booking flow to create, read, update and delete booking resources.\n\n- **1 - Getting bookings**\n    \n\nReturns the IDs of all the bookings that exist within the API. Can take optional query strings to search and return a subset of booking ids.\n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_001 | 1.1 | Getting bookings | Returns the IDs of all the bookings with OK \\[200\\] status | Returns the IDs of all the bookings with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_002 | 1.2.1 | Getting bookings by existing firstname | Returns the IDs of all the bookings filtered by \"firstname\" query parameter with OK \\[200\\] status | Returns the IDs of all the bookings filtered by \"firstname\" query parameter with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_002 | 1.2.2 | Getting bookings by non-existing firstname | Returns an empty array with OK \\[200\\] status | Returns an empty array with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_003 | 1.3.1 | Getting bookings by existing lastname | Returns the IDs of all the bookings filtered by \"lastname\" query parameter with OK \\[200\\] status | Returns the IDs of all the bookings filtered by \"lastname\" query parameter with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_003 | 1.3.2 | Getting bookings by non-existing lastname | Returns an empty array with OK \\[200\\] status | Returns an empty array with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_004 | 1.4 | Getting bookings after checkin date | Returns the IDs of all the bookings filtered after booking \"checkin\" date query parameter with OK \\[200\\] status | Returns the IDs of all the bookings filtered after booking \"checkin\" date query parameter with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_005 | 1.5 | Getting bookings after checkout date | Returns the IDs of all the bookings filtered after booking \"checkout\" date query parameter with OK \\[200\\] status | Returns the IDs of all the bookings filtered after booking \"checkout\" date query parameter with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_006 | 1.6.1 | Getting bookings by existing firstname and lastname | Returns the IDs of all the bookings filtered by \"firstname\" and \"lastname\" query parameters with OK \\[200\\] status | Returns the IDs of all the bookings filtered by \"firstname\" and \"lastname\" query parameters with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_006 | 1.6.2 | Getting bookings by existing firstname and non-existing lastname | Returns an empty array with OK \\[200\\] status | Returns an empty array with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_006 | 1.6.3 | Getting bookings by non-existing firstname and existing lastname | Returns an empty array with OK \\[200\\] status | Returns an empty array with OK \\[200\\] status | PASS |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_007 | 1.1 | Getting bookings by invalid checkin date | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_008 | 1.2 | Getting bookings by invalid checkin date format | Returns the IDs of all the bookings after the specified checkin date with invalid format and OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_009 | 1.3 | Getting bookings by invalid checkout date | Returns Internal Server Error \\[500\\] | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_010 | 1.4 | Getting bookings by invalid checkout date format | Returns the IDs of all the bookings after the specified checkout date with invalid format and OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n\n- **2 - Getting booking**\n    \n\nReturns a specific booking based upon the booking ID provided.\n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_011 | 2.1 | Getting booking in JSON format | Returns a specific booking based upon the booking ID provided with OK \\[200\\] status | Returns a specific booking based upon the booking ID provided with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_012 | 2.2 | Getting booking in XML format | Returns a specific booking based upon the booking ID provided with OK \\[200\\] status | Returns a specific booking based upon the booking ID provided with OK \\[200\\] status | PASS |\n\n###### Negative scenarios\n\n| **#** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_013 | 2.1.1 | Get booking by non-existing ID in JSON format | Returns Not Found \\[404\\] status | Returns Not Found \\[404\\] status | PASS |\n| TC_FT_BOOKING_014 | 2.1.2 | Get booking by non-numeric ID in JSON format | Returns Not Found \\[404\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_015 | 2.2.1 | Get booking by non-existing ID in XML format | Returns Not Found \\[404\\] status | Returns Not Found \\[404\\] status | PASS |\n| TC_FT_BOOKING_016 | 2.2.2 | Get booking by non-numeric ID in XML format | Returns Not Found \\[404\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n\n- **3 - Creating new booking**\n    \n\nCreates a new booking.\n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_017 | 3.1 | Create new booking | Returns new booking with OK \\[200\\] status | Returns new booking with Created \\[201\\] status | FAIL |\n| TC_FT_BOOKING_018 | 3.2 | Create new booking with nullable property additionalneeds | Returns new booking with nullable property \"additionalneeds\" with OK \\[200\\] status | Returns new booking with nullable property \"additionalneeds\" with Created \\[201\\] status | FAIL |\n| TC_FT_BOOKING_019 | 3.3 | Create new booking with missing property additionalneeds | Returns new booking with missing property \"additionalneeds\" with OK \\[200\\] status | Returns new booking with missing property \"additionalneeds\" with Created \\[201\\] status | FAIL |\n| TC_FT_BOOKING_020 | 3.4 | Create new booking with empty property additionalneeds | Returns new booking with empty property \"additionalneeds\" with OK \\[200\\] status | Returns new booking with empty property \"additionalneeds\" with Created \\[201\\] status | FAIL |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_021 | 3.1 | Create new booking with nullable property firstname | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_022 | 3.2 | Create new booking with empty property firstname | Returns new booking with empty property \"firstname\" with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_023 | 3.3 | Create new booking with nullable lastname | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_024 | 3.4 | Create new booking with empty property lastname | Returns new booking with empty property \"lastname\" with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_025 | 3.5 | Create new booking with nullable property totalprice | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_026 | 3.6 | Create new booking with negative property totalprice | Returns new booking with negative property \"totalprice\" with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_027 | 3.7 | Create new booking with nullable property depositpaid | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_028 | 3.8 | Create new booking with nullable property bookindates | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_029 | 3.9 | Create new booking with booking checkin date after booking checkout date | Returns new booking with booking checkin date after booking checkout date with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_030 | 3.10 | Create new booking with booking checkin date same as booking checkout date | Returns new booking with booking checkin date same as booking checkout date with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_031 | 3.11 | Create new booking with nullable property booking checkin date | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_032 | 3.12 | Create new booking with nullable property booking checkout date | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_033 | 3.13 | Create new booking with empty properties booking checkin and checkout dates | Returns new booking with empty properties booking checkin and checkout dates with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_034 | 3.14 | Create new booking with empty property booking checkin date | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_035 | 3.15 | Create new booking with emtpy property booking checkout date | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n\n- **4 - Updating booking**\n    \n\nUpdates current booking.\n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_036 | 4.1 | Update booking | Returns updated current booking with OK \\[200\\] status | Returns updated current booking with OK \\[200\\] status | PASS |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_037 | 4.1 | Update booking by non-existing ID | Returns method not allowed \\[405\\] status | Returns Not Found \\[404\\] status | FAIL |\n| TC_FT_BOOKING_038 | 4.2 | Update booking by non-numeric ID | Returns method not allowed \\[405\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_039 | 4.3 | Update booking by ID with missing auth header | Returns Forbidden \\[403\\] status | Returns Unauthorized \\[401\\] status | FAIL |\n| TC_FT_BOOKING_040 | 4.4 | Update booking by ID with invalid auth token | Returns Forbidden \\[403\\] status | Returns Forbidden \\[403\\] status | PASS |\n\n- **5 - Updating booking partially**\n    \n\nUpdates booking partially.\n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_041 | 5.1 | Update partially booking | Returns updated current booking with a partial payload with OK \\[200\\] status | Returns updated current booking with a partial payload with OK \\[200\\] status | PASS |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_042 | 5.1 | Update partially booking by non-existing ID | Returns method not allowed \\[405\\] status | Returns Not Found \\[404\\] status | FAIL |\n| TC_FT_BOOKING_043 | 5.2 | Update partially booking by non-numeric ID | Returns method not allowed \\[405\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_044 | 5.3 | Update partially booking by ID with missing auth header | Returns Forbidden \\[403\\] status | Returns Unauthorized \\[401\\] status | FAIL |\n| TC_FT_BOOKING_045 | 5.4 | Update partially booking by ID with invalid auth token | Returns Forbidden \\[403\\] status | Returns Forbidden \\[403\\] status | PASS |\n\n- **6 - Deleting booking**\n    \n\nDeletes a booking from the API.\n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_046 | 6.1 | Delete booking | Returns Created \\[201\\] status  <br>Deletes a booking from the API | Returns OK \\[200\\] status  <br>Deletes a booking from the API | FAIL |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_047 | 6.1 | Delete booking by non-existing ID | Returns method not allowed \\[405\\] status | Returns Not Found \\[404\\] status | FAIL |\n| TC_FT_BOOKING_048 | 6.2 | Delete booking by non-numeric ID | Returns method not allowed \\[405\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_049 | 6.3 | Delete booking by ID with missing auth header | Returns Forbidden \\[403\\] status | Returns Unauthorized \\[401\\] status | FAIL |\n| TC_FT_BOOKING_050 | 6.4 | Delete booking by ID with invalid auth token | Returns Forbidden \\[403\\] status | Returns Forbidden \\[403\\] status | PASS |",
       "event": [
         {
           "listen": "prerequest",
