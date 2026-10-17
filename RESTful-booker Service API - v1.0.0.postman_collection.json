@@ -2284,7 +2284,7 @@
                           "script": {
                             "type": "text/javascript",
                             "exec": [
-                              "pm.test(\"[CreateBooking] returns valid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains property [bookingid]', () => {\r\n    pm.expect(jsonData).to.have.property('bookingid');\r\n    pm.expect(jsonData.bookingid).to.be.a('number');\r\n});\r\n\r\npm.test('[CreateBooking] response contains property [booking]', () => {\r\n    pm.expect(jsonData).to.have.property('booking');\r\n    pm.expect(jsonData.booking).to.be.an('object');\r\n    pm.expect(jsonData.booking).eql(bookingData);\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                              "pm.test(\"[CreateBooking] returns valid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.collectionVariables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains property [bookingid]', () => {\r\n    pm.expect(jsonData).to.have.property('bookingid');\r\n    pm.expect(jsonData.bookingid).to.be.a('number');\r\n});\r\n\r\npm.test('[CreateBooking] response contains property [booking]', () => {\r\n    pm.expect(jsonData).to.have.property('booking');\r\n    pm.expect(jsonData.booking).to.be.an('object');\r\n    pm.expect(jsonData.booking).eql(bookingData);\r\n});\r\n\r\npm.collectionVariables.set(\"bookingData\", JSON.stringify(jsonData.booking));\r\npm.collectionVariables.set(\"bookingid\", jsonData.bookingid)\r\n"
                             ]
                           }
                         },
@@ -2293,7 +2293,7 @@
                           "script": {
                             "type": "text/javascript",
                             "exec": [
-                              "const bookingData = utils.fixtures.generateBooking();\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                              "const bookingData = utils.fixtures.generateBooking();\r\npm.collectionVariables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
                             ]
                           }
                         }
@@ -2334,6 +2334,59 @@
                           ],
                           "path": [
                             "booking"
+                          ]
+                        }
+                      },
+                      "response": []
+                    },
+                    {
+                      "name": "3.1.2 - Get booking by ID",
+                      "event": [
+                        {
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[GetBookingId] returns valid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\nconst bookingData = JSON.parse(pm.collectionVariables.get(\"bookingData\"));\n\npm.test('[GetBookingId] response contains created booking', () => {\n    pm.expect(jsonData).to.be.an('object');\n    pm.expect(jsonData.firstname).eq(bookingData.firstname);\n    pm.expect(jsonData.lastname).eq(bookingData.lastname);\n    pm.expect(jsonData.totalprice).eq(bookingData.totalprice);\n    pm.expect(jsonData.depositpaid).eq(bookingData.depositpaid);\n    pm.expect(jsonData.bookingdates).eql(bookingData.bookingdates);\n    pm.expect(jsonData.additionalneeds).eq(bookingData.additionalneeds);\n    //pm.expect(jsonData).eql(bookingData);\n});\n\npm.collectionVariables.unset(\"bookingData\");\npm.collectionVariables.unset(\"bookingid\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "utils.setupPathVariable(pm, \"bookingid\");"
+                            ]
+                          }
+                        }
+                      ],
+                      "request": {
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking/:bookingid",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking",
+                            ":bookingid"
+                          ],
+                          "variable": [
+                            {
+                              "key": "bookingid",
+                              "value": "{{bookingid}}"
+                            }
                           ]
                         }
                       },
@@ -2425,7 +2478,7 @@
                           "script": {
                             "type": "text/javascript",
                             "exec": [
-                              "const bookingData = utils.fixtures.generateBooking();\r\ndelete bookingData.additionalneeds;\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                              "const bookingData = utils.fixtures.generateBooking();\r\ndelete bookingData.additionalneeds;\r\n\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
                             ]
                           }
                         }
@@ -5084,7 +5137,7 @@
           "            || pm.variables.get(key)\r",
           "            || pm.collectionVariables.get(key)\r",
           "            || pm.environment.get(key)\r",
-          "            || pm.globals.get(key) \r",
+          "            || pm.globals.get(key);\r",
           "        }\r",
           "    },\r",
           "\r",
