@@ -69,17 +69,17 @@
               "name": "Negative scenarios",
               "item": [
                 {
-                  "name": "1.1 - Create new token with bad credentials",
+                  "name": "1.1 - Create new token with non-existing credentials",
                   "item": [
                     {
-                      "name": "1.1.1 - Create new token with bad credentials",
+                      "name": "1.1.1 - Create new token with non-existing credentials",
                       "event": [
                         {
                           "listen": "test",
                           "script": {
                             "type": "text/javascript",
                             "exec": [
-                              "pm.test(\"[CreateToken] returns invalid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\n\npm.test('[CreateToken] returns valid bad credentials reason', () => {\n    pm.expect(jsonData).to.have.property('reason');\n    pm.expect(jsonData.reason).eq(\"Bad credentials\");\n});\n"
+                              "pm.test(\"[CreateToken] returns invalid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\n\npm.test('[CreateToken] returns valid bad credentials message', () => {\n    pm.expect(jsonData).to.have.property('reason');\n    pm.expect(jsonData.reason).eq(\"Bad credentials\");\n});\n"
                             ]
                           }
                         },
@@ -88,7 +88,7 @@
                           "script": {
                             "type": "text/javascript",
                             "exec": [
-                              "utils.setupBody(pm, { username: \"test\", password: \"test\" });\r\n"
+                              "utils.setupBody(pm, { username: \"non-exist\", password: \"non-exist\" });\r\n"
                             ]
                           }
                         }
@@ -134,7 +134,7 @@
                           "script": {
                             "type": "text/javascript",
                             "exec": [
-                              "pm.test(\"[CreateToken] returns invalid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\n\npm.test('[CreateToken] returns valid bad credentials', () => {\n    pm.expect(jsonData).to.have.property('reason');\n    pm.expect(jsonData.reason).eq(\"Bad credentials\");\n});\n"
+                              "pm.test(\"[CreateToken] returns invalid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\n\npm.test('[CreateToken] returns valid bad credentials message', () => {\n    pm.expect(jsonData).to.have.property('reason');\n    pm.expect(jsonData.reason).eq(\"Bad credentials\");\n});\n"
                             ]
                           }
                         },
@@ -179,17 +179,17 @@
                   ]
                 },
                 {
-                  "name": "1.3 - Create new token with partial credentials",
+                  "name": "1.3 - Create new token with missing password",
                   "item": [
                     {
-                      "name": "1.3.1 - Create new token with partial credentials",
+                      "name": "1.3.1 - Create new token with missing password",
                       "event": [
                         {
                           "listen": "test",
                           "script": {
                             "type": "text/javascript",
                             "exec": [
-                              "pm.test(\"[CreateToken] returns invalid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\n\npm.test('[CreateToken] returns valid bad credentials', () => {\n    pm.expect(jsonData).to.have.property('reason');\n    pm.expect(jsonData.reason).eq(\"Bad credentials\");\n});\n"
+                              "pm.test(\"[CreateToken] returns invalid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\n\npm.test('[CreateToken] returns valid bad credentials message', () => {\n    pm.expect(jsonData).to.have.property('reason');\n    pm.expect(jsonData.reason).eq(\"Bad credentials\");\n});\n"
                             ]
                           }
                         },
@@ -198,7 +198,172 @@
                           "script": {
                             "type": "text/javascript",
                             "exec": [
-                              "utils.setupBody(pm, { username: \"admin\" }, true);"
+                              "utils.setupBody(pm, { username: pm.environment.get(\"username\") }, true);"
+                            ]
+                          }
+                        }
+                      ],
+                      "protocolProfileBehavior": {
+                        "insecureHTTPParser": false
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\r\n    \"username\" : \"{{username}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/auth",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth"
+                          ]
+                        },
+                        "description": "Creates a new auth token to use for access to the PUT and DELETE /booking"
+                      },
+                      "response": []
+                    }
+                  ]
+                },
+                {
+                  "name": "1.4 - Create new token with missing username",
+                  "item": [
+                    {
+                      "name": "1.4.1 - Create new token with missing username",
+                      "event": [
+                        {
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateToken] returns invalid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\n\npm.test('[CreateToken] returns valid bad credentials message', () => {\n    pm.expect(jsonData).to.have.property('reason');\n    pm.expect(jsonData.reason).eq(\"Bad credentials\");\n});\n"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "utils.setupBody(pm, { password: pm.environment.get(\"password\") }, true);"
+                            ]
+                          }
+                        }
+                      ],
+                      "protocolProfileBehavior": {
+                        "insecureHTTPParser": false
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\r\n    \"username\" : \"{{username}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/auth",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth"
+                          ]
+                        },
+                        "description": "Creates a new auth token to use for access to the PUT and DELETE /booking"
+                      },
+                      "response": []
+                    }
+                  ]
+                },
+                {
+                  "name": "1.5 - Create new token with empty username",
+                  "item": [
+                    {
+                      "name": "1.5.1 - Create new token with empty username",
+                      "event": [
+                        {
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateToken] returns invalid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\n\npm.test('[CreateToken] returns valid bad credentials message', () => {\n    pm.expect(jsonData).to.have.property('reason');\n    pm.expect(jsonData.reason).eq(\"Bad credentials\");\n});\n"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "utils.setupBody(pm, { username: \"\", password: pm.environment.get(\"password\") }, true);"
+                            ]
+                          }
+                        }
+                      ],
+                      "protocolProfileBehavior": {
+                        "insecureHTTPParser": false
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\r\n    \"username\" : \"{{username}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/auth",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth"
+                          ]
+                        },
+                        "description": "Creates a new auth token to use for access to the PUT and DELETE /booking"
+                      },
+                      "response": []
+                    }
+                  ]
+                },
+                {
+                  "name": "1.6 - Create new token with empty password",
+                  "item": [
+                    {
+                      "name": "1.6.1 - Create new token with empty password",
+                      "event": [
+                        {
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateToken] returns invalid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\n\npm.test('[CreateToken] returns valid bad credentials message', () => {\n    pm.expect(jsonData).to.have.property('reason');\n    pm.expect(jsonData.reason).eq(\"Bad credentials\");\n});\n"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "utils.setupBody(pm, { username: pm.environment.get(\"username\"), password: \"\" }, true);"
                             ]
                           }
                         }
@@ -239,7 +404,7 @@
           "description": "Creates a new auth token to use for access to the PUT and DELETE /booking."
         }
       ],
-      "description": "Provides operations on authorization flow to access the REST API endpoints.\n\n1. **Creating new token**\n    \n\nCreates a new auth token to use for access to the PUT and DELETE.\n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_AUTH_001 | 1.1 | Create new token | Returns new auth token with OK \\[200\\] status | Returns new auth token with OK \\[200\\] status | PASS |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_AUTH_002 | 1.1 | Create new token with bad credentials | Returns OK \\[200\\] status with bad credentials message | Returns Bad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with error message | PASS |\n| TC_FT_AUTH_003 | 1.2 | Create new token with empty credentials | Returns OK \\[200\\] status with bad credentials message | Returns Rad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with error message | PASS |\n| TC_FT_AUTH_004 | 1.3 | Create new token with partial credentials | Returns OK \\[200\\] status with bad credentials message | Returns Bad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with error message | PASS |",
+      "description": "Provides operations on authorization flow to access the REST API endpoints.\n\n1. **Creating new token**\n    \n\n> Creates a new auth token to use for access to the PUT and DELETE. \n  \n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_AUTH_001 | 1.1 | Create new token | Returns new auth token with OK \\[200\\] status | Returns new auth token with OK \\[200\\] status | PASS |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_AUTH_002 | 1.1 | Create new token with non-existing credentials | Returns OK \\[200\\] status with bad credentials message | Returns Bad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with error message | PASS |\n| TC_FT_AUTH_003 | 1.2 | Create new token with empty credentials | Returns OK \\[200\\] status with bad credentials message | Returns Rad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with error message | PASS |\n| TC_FT_AUTH_004 | 1.3 | Create new token with missing password | Returns OK \\[200\\] status with bad credentials message | Returns Bad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with error message | PASS |\n| TC_FT_AUTH_005 | 1.4 | Create new token with missing usename | Returns OK \\[200\\] status with bad credentials message | Returns Bad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with error message | PASS |\n| TC_FT_AUTH_006 | 1.5 | Create new token with empty usename | Returns OK \\[200\\] status with bad credentials message | Returns Bad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with error message | PASS |\n| TC_FT_AUTH_007 | 1.6 | Create new token with empty password | Returns OK \\[200\\] status with bad credentials message | Returns Bad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with error message | PASS |",
       "event": [
         {
           "listen": "prerequest",
@@ -4490,7 +4655,7 @@
           "description": "Deletes a booking from the API.\n\n> Requires an authorization token to be set in the header or a Basic auth header."
         }
       ],
-      "description": "Provides operations on booking flow to create, read, update and delete booking resources.\n\n- **1 - Getting bookings**\n    \n\nReturns the IDs of all the bookings that exist within the API. Can take optional query strings to search and return a subset of booking ids.\n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_001 | 1.1 | Getting bookings | Returns the IDs of all the bookings with OK \\[200\\] status | Returns the IDs of all the bookings with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_002 | 1.2.1 | Getting bookings by existing firstname | Returns the IDs of all the bookings filtered by \"firstname\" query parameter with OK \\[200\\] status | Returns the IDs of all the bookings filtered by \"firstname\" query parameter with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_002 | 1.2.2 | Getting bookings by non-existing firstname | Returns an empty array with OK \\[200\\] status | Returns an empty array with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_003 | 1.3.1 | Getting bookings by existing lastname | Returns the IDs of all the bookings filtered by \"lastname\" query parameter with OK \\[200\\] status | Returns the IDs of all the bookings filtered by \"lastname\" query parameter with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_003 | 1.3.2 | Getting bookings by non-existing lastname | Returns an empty array with OK \\[200\\] status | Returns an empty array with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_004 | 1.4 | Getting bookings after checkin date | Returns the IDs of all the bookings filtered after booking \"checkin\" date query parameter with OK \\[200\\] status | Returns the IDs of all the bookings filtered after booking \"checkin\" date query parameter with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_005 | 1.5 | Getting bookings after checkout date | Returns the IDs of all the bookings filtered after booking \"checkout\" date query parameter with OK \\[200\\] status | Returns the IDs of all the bookings filtered after booking \"checkout\" date query parameter with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_006 | 1.6.1 | Getting bookings by existing firstname and lastname | Returns the IDs of all the bookings filtered by \"firstname\" and \"lastname\" query parameters with OK \\[200\\] status | Returns the IDs of all the bookings filtered by \"firstname\" and \"lastname\" query parameters with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_006 | 1.6.2 | Getting bookings by existing firstname and non-existing lastname | Returns an empty array with OK \\[200\\] status | Returns an empty array with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_006 | 1.6.3 | Getting bookings by non-existing firstname and existing lastname | Returns an empty array with OK \\[200\\] status | Returns an empty array with OK \\[200\\] status | PASS |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_007 | 1.1 | Getting bookings by invalid checkin date | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_008 | 1.2 | Getting bookings by invalid checkin date format | Returns the IDs of all the bookings after the specified checkin date with invalid format and OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_009 | 1.3 | Getting bookings by invalid checkout date | Returns Internal Server Error \\[500\\] | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_010 | 1.4 | Getting bookings by invalid checkout date format | Returns the IDs of all the bookings after the specified checkout date with invalid format and OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n\n- **2 - Getting booking**\n    \n\nReturns a specific booking based upon the booking ID provided.\n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_011 | 2.1 | Getting booking in JSON format | Returns a specific booking based upon the booking ID provided with OK \\[200\\] status | Returns a specific booking based upon the booking ID provided with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_012 | 2.2 | Getting booking in XML format | Returns a specific booking based upon the booking ID provided with OK \\[200\\] status | Returns a specific booking based upon the booking ID provided with OK \\[200\\] status | PASS |\n\n###### Negative scenarios\n\n| **#** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_013 | 2.1.1 | Get booking by non-existing ID in JSON format | Returns Not Found \\[404\\] status | Returns Not Found \\[404\\] status | PASS |\n| TC_FT_BOOKING_014 | 2.1.2 | Get booking by non-numeric ID in JSON format | Returns Not Found \\[404\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_015 | 2.2.1 | Get booking by non-existing ID in XML format | Returns Not Found \\[404\\] status | Returns Not Found \\[404\\] status | PASS |\n| TC_FT_BOOKING_016 | 2.2.2 | Get booking by non-numeric ID in XML format | Returns Not Found \\[404\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n\n- **3 - Creating new booking**\n    \n\nCreates a new booking.\n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_017 | 3.1 | Create new booking | Returns new booking with OK \\[200\\] status | Returns new booking with Created \\[201\\] status | FAIL |\n| TC_FT_BOOKING_018 | 3.2 | Create new booking with nullable property additionalneeds | Returns new booking with nullable property \"additionalneeds\" with OK \\[200\\] status | Returns new booking with nullable property \"additionalneeds\" with Created \\[201\\] status | FAIL |\n| TC_FT_BOOKING_019 | 3.3 | Create new booking with missing property additionalneeds | Returns new booking with missing property \"additionalneeds\" with OK \\[200\\] status | Returns new booking with missing property \"additionalneeds\" with Created \\[201\\] status | FAIL |\n| TC_FT_BOOKING_020 | 3.4 | Create new booking with empty property additionalneeds | Returns new booking with empty property \"additionalneeds\" with OK \\[200\\] status | Returns new booking with empty property \"additionalneeds\" with Created \\[201\\] status | FAIL |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_021 | 3.1 | Create new booking with nullable property firstname | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_022 | 3.2 | Create new booking with empty property firstname | Returns new booking with empty property \"firstname\" with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_023 | 3.3 | Create new booking with nullable lastname | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_024 | 3.4 | Create new booking with empty property lastname | Returns new booking with empty property \"lastname\" with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_025 | 3.5 | Create new booking with nullable property totalprice | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_026 | 3.6 | Create new booking with negative property totalprice | Returns new booking with negative property \"totalprice\" with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_027 | 3.7 | Create new booking with nullable property depositpaid | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_028 | 3.8 | Create new booking with nullable property bookindates | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_029 | 3.9 | Create new booking with booking checkin date after booking checkout date | Returns new booking with booking checkin date after booking checkout date with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_030 | 3.10 | Create new booking with booking checkin date same as booking checkout date | Returns new booking with booking checkin date same as booking checkout date with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_031 | 3.11 | Create new booking with nullable property booking checkin date | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_032 | 3.12 | Create new booking with nullable property booking checkout date | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_033 | 3.13 | Create new booking with empty properties booking checkin and checkout dates | Returns new booking with empty properties booking checkin and checkout dates with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_034 | 3.14 | Create new booking with empty property booking checkin date | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_035 | 3.15 | Create new booking with emtpy property booking checkout date | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n\n- **4 - Updating booking**\n    \n\nUpdates current booking.\n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_036 | 4.1 | Update booking | Returns updated current booking with OK \\[200\\] status | Returns updated current booking with OK \\[200\\] status | PASS |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_037 | 4.1 | Update booking by non-existing ID | Returns method not allowed \\[405\\] status | Returns Not Found \\[404\\] status | FAIL |\n| TC_FT_BOOKING_038 | 4.2 | Update booking by non-numeric ID | Returns method not allowed \\[405\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_039 | 4.3 | Update booking by ID with missing auth header | Returns Forbidden \\[403\\] status | Returns Unauthorized \\[401\\] status | FAIL |\n| TC_FT_BOOKING_040 | 4.4 | Update booking by ID with invalid auth token | Returns Forbidden \\[403\\] status | Returns Forbidden \\[403\\] status | PASS |\n\n- **5 - Updating booking partially**\n    \n\nUpdates booking partially.\n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_041 | 5.1 | Update partially booking | Returns updated current booking with a partial payload with OK \\[200\\] status | Returns updated current booking with a partial payload with OK \\[200\\] status | PASS |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_042 | 5.1 | Update partially booking by non-existing ID | Returns method not allowed \\[405\\] status | Returns Not Found \\[404\\] status | FAIL |\n| TC_FT_BOOKING_043 | 5.2 | Update partially booking by non-numeric ID | Returns method not allowed \\[405\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_044 | 5.3 | Update partially booking by ID with missing auth header | Returns Forbidden \\[403\\] status | Returns Unauthorized \\[401\\] status | FAIL |\n| TC_FT_BOOKING_045 | 5.4 | Update partially booking by ID with invalid auth token | Returns Forbidden \\[403\\] status | Returns Forbidden \\[403\\] status | PASS |\n\n- **6 - Deleting booking**\n    \n\nDeletes a booking from the API.\n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_046 | 6.1 | Delete booking | Returns Created \\[201\\] status  <br>Deletes a booking from the API | Returns OK \\[200\\] status  <br>Deletes a booking from the API | FAIL |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_047 | 6.1 | Delete booking by non-existing ID | Returns method not allowed \\[405\\] status | Returns Not Found \\[404\\] status | FAIL |\n| TC_FT_BOOKING_048 | 6.2 | Delete booking by non-numeric ID | Returns method not allowed \\[405\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_049 | 6.3 | Delete booking by ID with missing auth header | Returns Forbidden \\[403\\] status | Returns Unauthorized \\[401\\] status | FAIL |\n| TC_FT_BOOKING_050 | 6.4 | Delete booking by ID with invalid auth token | Returns Forbidden \\[403\\] status | Returns Forbidden \\[403\\] status | PASS |",
+      "description": "Provides operations on booking flow to create, read, update and delete booking resources.\n\n- **1 - Getting bookings**\n    \n\n> Returns the IDs of all the bookings that exist within the API. Can take optional query strings to search and return a subset of booking ids. \n  \n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_001 | 1.1 | Getting bookings | Returns the IDs of all the bookings with OK \\[200\\] status | Returns the IDs of all the bookings with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_002 | 1.2.1 | Getting bookings by existing firstname | Returns the IDs of all the bookings filtered by \"firstname\" query parameter with OK \\[200\\] status | Returns the IDs of all the bookings filtered by \"firstname\" query parameter with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_003 | 1.2.2 | Getting bookings by non-existing firstname | Returns an empty array with OK \\[200\\] status | Returns an empty array with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_004 | 1.3.1 | Getting bookings by existing lastname | Returns the IDs of all the bookings filtered by \"lastname\" query parameter with OK \\[200\\] status | Returns the IDs of all the bookings filtered by \"lastname\" query parameter with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_005 | 1.3.2 | Getting bookings by non-existing lastname | Returns an empty array with OK \\[200\\] status | Returns an empty array with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_006 | 1.4 | Getting bookings after checkin date | Returns the IDs of all the bookings filtered after booking \"checkin\" date query parameter with OK \\[200\\] status | Returns the IDs of all the bookings filtered after booking \"checkin\" date query parameter with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_007 | 1.5 | Getting bookings after checkout date | Returns the IDs of all the bookings filtered after booking \"checkout\" date query parameter with OK \\[200\\] status | Returns the IDs of all the bookings filtered after booking \"checkout\" date query parameter with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_008 | 1.6.1 | Getting bookings by existing firstname and lastname | Returns the IDs of all the bookings filtered by \"firstname\" and \"lastname\" query parameters with OK \\[200\\] status | Returns the IDs of all the bookings filtered by \"firstname\" and \"lastname\" query parameters with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_009 | 1.6.2 | Getting bookings by existing firstname and non-existing lastname | Returns an empty array with OK \\[200\\] status | Returns an empty array with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_010 | 1.6.3 | Getting bookings by non-existing firstname and existing lastname | Returns an empty array with OK \\[200\\] status | Returns an empty array with OK \\[200\\] status | PASS |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_011 | 1.1 | Getting bookings by invalid checkin date | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_012 | 1.2 | Getting bookings by invalid checkin date format | Returns the IDs of all the bookings after the specified checkin date with invalid format and OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_013 | 1.3 | Getting bookings by invalid checkout date | Returns Internal Server Error \\[500\\] | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_014 | 1.4 | Getting bookings by invalid checkout date format | Returns the IDs of all the bookings after the specified checkout date with invalid format and OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n\n- **2 - Getting booking**\n    \n\n> Returns a specific booking based upon the booking ID provided. \n  \n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_015 | 2.1 | Getting booking in JSON format | Returns a specific booking based upon the booking ID provided with OK \\[200\\] status | Returns a specific booking based upon the booking ID provided with OK \\[200\\] status | PASS |\n| TC_FT_BOOKING_016 | 2.2 | Getting booking in XML format | Returns a specific booking based upon the booking ID provided with OK \\[200\\] status | Returns a specific booking based upon the booking ID provided with OK \\[200\\] status | PASS |\n\n###### Negative scenarios\n\n| **#** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_017 | 2.1.1 | Get booking by non-existing ID in JSON format | Returns Not Found \\[404\\] status | Returns Not Found \\[404\\] status | PASS |\n| TC_FT_BOOKING_018 | 2.1.2 | Get booking by non-numeric ID in JSON format | Returns Not Found \\[404\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_019 | 2.2.1 | Get booking by non-existing ID in XML format | Returns Not Found \\[404\\] status | Returns Not Found \\[404\\] status | PASS |\n| TC_FT_BOOKING_020 | 2.2.2 | Get booking by non-numeric ID in XML format | Returns Not Found \\[404\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n\n- **3 - Creating new booking**\n    \n\n> Creates a new booking. \n  \n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_021 | 3.1 | Create new booking | Returns new booking with OK \\[200\\] status | Returns new booking with Created \\[201\\] status | FAIL |\n| TC_FT_BOOKING_022 | 3.2 | Create new booking with nullable property additionalneeds | Returns new booking with nullable property \"additionalneeds\" with OK \\[200\\] status | Returns new booking with nullable property \"additionalneeds\" with Created \\[201\\] status | FAIL |\n| TC_FT_BOOKING_023 | 3.3 | Create new booking with missing property additionalneeds | Returns new booking with missing property \"additionalneeds\" with OK \\[200\\] status | Returns new booking with missing property \"additionalneeds\" with Created \\[201\\] status | FAIL |\n| TC_FT_BOOKING_024 | 3.4 | Create new booking with empty property additionalneeds | Returns new booking with empty property \"additionalneeds\" with OK \\[200\\] status | Returns new booking with empty property \"additionalneeds\" with Created \\[201\\] status | FAIL |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_025 | 3.1 | Create new booking with nullable property firstname | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_026 | 3.2 | Create new booking with empty property firstname | Returns new booking with empty property \"firstname\" with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_027 | 3.3 | Create new booking with nullable lastname | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_028 | 3.4 | Create new booking with empty property lastname | Returns new booking with empty property \"lastname\" with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_029 | 3.5 | Create new booking with nullable property totalprice | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_030 | 3.6 | Create new booking with negative property totalprice | Returns new booking with negative property \"totalprice\" with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_031 | 3.7 | Create new booking with nullable property depositpaid | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_032 | 3.8 | Create new booking with nullable property bookindates | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_033 | 3.9 | Create new booking with booking checkin date after booking checkout date | Returns new booking with booking checkin date after booking checkout date with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_034 | 3.10 | Create new booking with booking checkin date same as booking checkout date | Returns new booking with booking checkin date same as booking checkout date with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_035 | 3.11 | Create new booking with nullable property booking checkin date | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_036 | 3.12 | Create new booking with nullable property booking checkout date | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_037 | 3.13 | Create new booking with empty properties booking checkin and checkout dates | Returns new booking with empty properties booking checkin and checkout dates with OK \\[200\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_038 | 3.14 | Create new booking with empty property booking checkin date | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_039 | 3.15 | Create new booking with emtpy property booking checkout date | Returns Internal Server Error \\[500\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n\n- **4 - Updating booking**\n    \n\n> Updates current booking. \n  \n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_040 | 4.1 | Update booking | Returns updated current booking with OK \\[200\\] status | Returns updated current booking with OK \\[200\\] status | PASS |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_041 | 4.1 | Update booking by non-existing ID | Returns method not allowed \\[405\\] status | Returns Not Found \\[404\\] status | FAIL |\n| TC_FT_BOOKING_042 | 4.2 | Update booking by non-numeric ID | Returns method not allowed \\[405\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_043 | 4.3 | Update booking by ID with missing auth header | Returns Forbidden \\[403\\] status | Returns Unauthorized \\[401\\] status | FAIL |\n| TC_FT_BOOKING_044 | 4.4 | Update booking by ID with invalid auth token | Returns Forbidden \\[403\\] status | Returns Forbidden \\[403\\] status | PASS |\n\n- **5 - Updating booking partially**\n    \n\n> Updates booking partially. \n  \n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_045 | 5.1 | Update partially booking | Returns updated current booking with a partial payload with OK \\[200\\] status | Returns updated current booking with a partial payload with OK \\[200\\] status | PASS |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_046 | 5.1 | Update partially booking by non-existing ID | Returns method not allowed \\[405\\] status | Returns Not Found \\[404\\] status | FAIL |\n| TC_FT_BOOKING_047 | 5.2 | Update partially booking by non-numeric ID | Returns method not allowed \\[405\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_048 | 5.3 | Update partially booking by ID with missing auth header | Returns Forbidden \\[403\\] status | Returns Unauthorized \\[401\\] status | FAIL |\n| TC_FT_BOOKING_049 | 5.4 | Update partially booking by ID with invalid auth token | Returns Forbidden \\[403\\] status | Returns Forbidden \\[403\\] status | PASS |\n\n- **6 - Deleting booking**\n    \n\n> Deletes a booking from the API. \n  \n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_050 | 6.1 | Delete booking | Returns Created \\[201\\] status  <br>Deletes a booking from the API | Returns OK \\[200\\] status  <br>Deletes a booking from the API | FAIL |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_BOOKING_051 | 6.1 | Delete booking by non-existing ID | Returns method not allowed \\[405\\] status | Returns Not Found \\[404\\] status | FAIL |\n| TC_FT_BOOKING_052 | 6.2 | Delete booking by non-numeric ID | Returns method not allowed \\[405\\] status | Returns Bad Request \\[400\\] status with error message | FAIL |\n| TC_FT_BOOKING_053 | 6.3 | Delete booking by ID with missing auth header | Returns Forbidden \\[403\\] status | Returns Unauthorized \\[401\\] status | FAIL |\n| TC_FT_BOOKING_054 | 6.4 | Delete booking by ID with invalid auth token | Returns Forbidden \\[403\\] status | Returns Forbidden \\[403\\] status | PASS |",
       "event": [
         {
           "listen": "prerequest",
@@ -4559,7 +4724,7 @@
           "description": "A simple health check endpoint to confirm whether the API is up and running."
         }
       ],
-      "description": "Provides operations on healcheck probe status.\n\n- **1 - Getting API status**\n    \n\nGets healthcheck probe/status.\n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_PING_001 | 1.1 | Get healthcheck probe | Returns created \\[201\\] status | Returns OK \\[200\\] status | FAIL |",
+      "description": "Provides operations on healcheck probe status.\n\n- **1 - Getting API status**\n    \n\n> Gets healthcheck probe/status. \n  \n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_PING_001 | 1.1 | Get healthcheck probe | Returns created \\[201\\] status | Returns OK \\[200\\] status | FAIL |",
       "event": [
         {
           "listen": "prerequest",
