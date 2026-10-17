@@ -88,7 +88,7 @@
                           "script": {
                             "type": "text/javascript",
                             "exec": [
-                              "utils.setupBody(pm, { username: \"non-exist\", password: \"non-exist\" });\r\n"
+                              "utils.setupBody(pm, { username: utils.fixtures.generateString(), password: utils.fixtures.generateString() });"
                             ]
                           }
                         }
@@ -397,6 +397,61 @@
                       "response": []
                     }
                   ]
+                },
+                {
+                  "name": "1.7 - Create new token with empty body",
+                  "item": [
+                    {
+                      "name": "1.7.1 - Create new token with empty body",
+                      "event": [
+                        {
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[CreateToken] returns valid Bad Request [400] response\", () => {\n    pm.response.to.be.badRequest;\n    pm.response.to.be.withBody;\n    pm.response.to.not.be.json;\n});\n"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "utils.setupBody(pm, \"\", true);"
+                            ]
+                          }
+                        }
+                      ],
+                      "protocolProfileBehavior": {
+                        "insecureHTTPParser": false
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\r\n    \"username\" : \"{{username}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/auth",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth"
+                          ]
+                        },
+                        "description": "Creates a new auth token to use for access to the PUT and DELETE /booking"
+                      },
+                      "response": []
+                    }
+                  ]
                 }
               ]
             }
@@ -404,7 +459,7 @@
           "description": "Creates a new auth token to use for access to the PUT and DELETE /booking."
         }
       ],
-      "description": "Provides operations on authorization flow to access the REST API endpoints.\n\n1. **Creating new token**\n    \n\n> Creates a new auth token to use for access to the PUT and DELETE. \n  \n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_AUTH_001 | 1.1 | Create new token | Returns new auth token with OK \\[200\\] status | Returns new auth token with OK \\[200\\] status | PASS |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_AUTH_002 | 1.1 | Create new token with non-existing credentials | Returns OK \\[200\\] status with bad credentials message | Returns Bad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with error message | PASS |\n| TC_FT_AUTH_003 | 1.2 | Create new token with empty credentials | Returns OK \\[200\\] status with bad credentials message | Returns Rad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with error message | PASS |\n| TC_FT_AUTH_004 | 1.3 | Create new token with missing password | Returns OK \\[200\\] status with bad credentials message | Returns Bad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with error message | PASS |\n| TC_FT_AUTH_005 | 1.4 | Create new token with missing usename | Returns OK \\[200\\] status with bad credentials message | Returns Bad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with error message | PASS |\n| TC_FT_AUTH_006 | 1.5 | Create new token with empty usename | Returns OK \\[200\\] status with bad credentials message | Returns Bad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with error message | PASS |\n| TC_FT_AUTH_007 | 1.6 | Create new token with empty password | Returns OK \\[200\\] status with bad credentials message | Returns Bad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with error message | PASS |",
+      "description": "Provides operations on authorization flow to access the REST API endpoints.\n\n1. **Creating new token**\n    \n\n> Creates a new auth token to use for access to the PUT and DELETE. \n  \n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_AUTH_001 | 1.1 | Create new token | Returns new auth token with OK \\[200\\] status | Returns new auth token with OK \\[200\\] status | PASS |\n\n###### Negative scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_AUTH_002 | 1.1 | Create new token with non-existing credentials | Returns OK \\[200\\] status with bad credentials message | Returns Bad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with bad credentials message | PASS |\n| TC_FT_AUTH_003 | 1.2 | Create new token with empty credentials | Returns OK \\[200\\] status with bad credentials message | Returns Rad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with bad credentials message | PASS |\n| TC_FT_AUTH_004 | 1.3 | Create new token with missing password | Returns OK \\[200\\] status with bad credentials message | Returns Bad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with bad credentials message | PASS |\n| TC_FT_AUTH_005 | 1.4 | Create new token with missing usename | Returns OK \\[200\\] status with bad credentials message | Returns Bad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with bad credentials message | PASS |\n| TC_FT_AUTH_006 | 1.5 | Create new token with empty usename | Returns OK \\[200\\] status with bad credentials message | Returns Bad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with bad credentials message | PASS |\n| TC_FT_AUTH_007 | 1.6 | Create new token with empty password | Returns OK \\[200\\] status with bad credentials message | Returns Bad Request \\[400\\] status with error message  <br>or  <br>Returns OK \\[200\\] status with bad credentials message | PASS |\n| TC_FT_AUTH_008 | 1.7 | Create new token with empty body | Returns Bad Request \\[400\\] status | Returns Bad Request \\[400\\] status with error message | PASS |",
       "event": [
         {
           "listen": "prerequest",
@@ -1541,7 +1596,7 @@
                           "script": {
                             "type": "text/javascript",
                             "exec": [
-                              "utils.setupQueryVariable(pm, \"checkin\", \"2024\");"
+                              "const date = (utils.fixtures.generateRecentDate().subtract(utils.fixtures.generateInt(0, 10), 'years'));\r\nutils.setupQueryVariable(pm, \"checkin\", utils.formatDate(date, \"YYYY\"));"
                             ]
                           }
                         }
@@ -1709,7 +1764,7 @@
                           "script": {
                             "type": "text/javascript",
                             "exec": [
-                              "utils.setupQueryVariable(pm, \"checkout\", \"2018\");"
+                              "const date = (utils.fixtures.generateRecentDate().subtract(utils.fixtures.generateInt(0, 10), 'years'));\r\nutils.setupQueryVariable(pm, \"checkout\", utils.formatDate(date));"
                             ]
                           }
                         }
@@ -4991,12 +5046,12 @@
           "        }\r",
           "    },\r",
           "\r",
-          "    formatDate: (date) => {\r",
-          "        return date.format(DEFAULT_DATE_FORMAT);\r",
+          "    formatDate: (date, format = DEFAULT_DATE_FORMAT) => {\r",
+          "        return date.format(format);\r",
           "    },\r",
           "\r",
-          "    parseDate: (str, format) => {\r",
-          "        return moment(str, format || DEFAULT_DATE_FORMAT);\r",
+          "    parseDate: (str, format = DEFAULT_DATE_FORMAT) => {\r",
+          "        return moment(str, format);\r",
           "    },\r",
           "\r",
           "    randomElement: (arr) => {\r",
@@ -5052,15 +5107,21 @@
           "\r",
           "utils.fixtures = {\r",
           "    generateFutureDate: () => {\r",
-          "        const futureDate = pm.variables.replaceIn('{{$randomDateFuture}}');\r",
+          "        const date = pm.variables.replaceIn('{{$randomDateFuture}}');\r",
           "\r",
-          "        return moment(futureDate);\r",
+          "        return moment(date);\r",
+          "    },\r",
+          "\r",
+          "    generateRecentDate: () => {\r",
+          "        const date = pm.variables.replaceIn('{{$randomDateRecent}}');\r",
+          "\r",
+          "        return moment(date);\r",
           "    },\r",
           "\r",
           "    generatePastDate: () => {\r",
-          "        const pastDate = pm.variables.replaceIn('{{$randomDatePast}}');\r",
+          "        const date = pm.variables.replaceIn('{{$randomDatePast}}');\r",
           "\r",
-          "        return moment(pastDate);\r",
+          "        return moment(date);\r",
           "    },\r",
           "\r",
           "    generateInt: (min, max) => {\r",
