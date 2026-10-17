@@ -4684,47 +4684,57 @@
           "name": "1 - Getting API status",
           "item": [
             {
-              "name": "1.1 - Get healthcheck probe",
-              "event": [
+              "name": "Positive scenarios",
+              "item": [
                 {
-                  "listen": "test",
-                  "script": {
-                    "type": "text/javascript",
-                    "exec": [
-                      "pm.test(\"[HealthCheck] returns invalid created [201] response\", () => {\r\n    pm.response.to.have.status(201);\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.not.be.json;\r\n});"
-                    ]
-                  }
-                }
-              ],
-              "request": {
-                "method": "GET",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                  "name": "1.1 - Get healthcheck status",
+                  "item": [
+                    {
+                      "name": "1.1.1 - Get healthcheck status",
+                      "event": [
+                        {
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[HealthCheck] returns invalid created [201] response\", () => {\r\n    pm.response.to.have.status(201);\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.not.be.json;\r\n});"
+                            ]
+                          }
+                        }
+                      ],
+                      "request": {
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/ping",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "ping"
+                          ]
+                        }
+                      },
+                      "response": []
                     }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/ping",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "ping"
                   ]
                 }
-              },
-              "response": []
+              ]
             }
           ],
           "description": "A simple health check endpoint to confirm whether the API is up and running."
         }
       ],
-      "description": "Provides operations on healcheck probe status.\n\n- **1 - Getting API status**\n    \n\n> Gets healthcheck probe/status. \n  \n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_PING_001 | 1.1 | Get healthcheck probe | Returns created \\[201\\] status | Returns OK \\[200\\] status | FAIL |",
+      "description": "Provides operations on healcheck status.\n\n- **1 - Getting API status**\n    \n\n> Gets healthcheck status. \n  \n\n###### Positive scenarios\n\n| **ID** | **#** | **Name** | **Actual** | **Expected** | **Status** |\n| --- | --- | --- | --- | --- | --- |\n| TC_FT_PING_001 | 1.1 | Get healthcheck status | Returns created \\[201\\] status | Returns OK \\[200\\] status | FAIL |",
       "event": [
         {
           "listen": "prerequest",
