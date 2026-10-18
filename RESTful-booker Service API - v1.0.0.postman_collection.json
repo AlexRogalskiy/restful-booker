@@ -2284,7 +2284,7 @@
                           "script": {
                             "type": "text/javascript",
                             "exec": [
-                              "pm.test(\"[CreateBooking] returns valid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.collectionVariables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains property [bookingid]', () => {\r\n    pm.expect(jsonData).to.have.property('bookingid');\r\n    pm.expect(jsonData.bookingid).to.be.a('number');\r\n});\r\n\r\npm.test('[CreateBooking] response contains property [booking]', () => {\r\n    pm.expect(jsonData).to.have.property('booking');\r\n    pm.expect(jsonData.booking).to.be.an('object');\r\n    pm.expect(jsonData.booking).eql(bookingData);\r\n});\r\n\r\npm.collectionVariables.set(\"bookingData\", JSON.stringify(jsonData.booking));\r\npm.collectionVariables.set(\"bookingid\", jsonData.bookingid)\r\n"
+                              "pm.test(\"[CreateBooking] returns valid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.collectionVariables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains valid property [bookingid]', () => {\r\n    pm.expect(jsonData).to.have.property('bookingid');\r\n    pm.expect(jsonData.bookingid).to.be.a('number');\r\n});\r\n\r\npm.test('[CreateBooking] response contains valid property [booking]', () => {\r\n    pm.expect(jsonData).to.have.property('booking');\r\n    pm.expect(jsonData.booking).to.be.an('object');\r\n    pm.expect(utils.isEqual(jsonData.booking, bookingData)).is.true;\r\n    //pm.expect(jsonData.booking).eql(bookingData);\r\n});\r\n\r\npm.collectionVariables.set(\"bookingData\", JSON.stringify(jsonData.booking));\r\npm.collectionVariables.set(\"bookingid\", jsonData.bookingid)\r\n"
                             ]
                           }
                         },
@@ -2347,7 +2347,7 @@
                           "script": {
                             "type": "text/javascript",
                             "exec": [
-                              "pm.test(\"[GetBookingId] returns valid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\nconst bookingData = JSON.parse(pm.collectionVariables.get(\"bookingData\"));\n\npm.test('[GetBookingId] response contains created booking', () => {\n    pm.expect(jsonData).to.be.an('object');\n    pm.expect(jsonData.firstname).eq(bookingData.firstname);\n    pm.expect(jsonData.lastname).eq(bookingData.lastname);\n    pm.expect(jsonData.totalprice).eq(bookingData.totalprice);\n    pm.expect(jsonData.depositpaid).eq(bookingData.depositpaid);\n    pm.expect(jsonData.bookingdates).eql(bookingData.bookingdates);\n    pm.expect(jsonData.additionalneeds).eq(bookingData.additionalneeds);\n    //pm.expect(jsonData).eql(bookingData);\n});\n\npm.collectionVariables.unset(\"bookingData\");\npm.collectionVariables.unset(\"bookingid\");"
+                              "pm.test(\"[GetBookingId] returns valid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\nconst bookingData = JSON.parse(pm.collectionVariables.get(\"bookingData\"));\n\npm.test('[GetBookingId] response contains created booking', () => {\n    pm.expect(jsonData).to.be.an('object');\n    pm.expect(utils.isEqual(jsonData, bookingData)).is.true;\n    //pm.expect(jsonData).eql(bookingData);\n});\n\npm.collectionVariables.unset(\"bookingData\");\npm.collectionVariables.unset(\"bookingid\");"
                             ]
                           }
                         },
@@ -2405,7 +2405,7 @@
                           "script": {
                             "type": "text/javascript",
                             "exec": [
-                              "pm.test(\"[CreateBooking] returns valid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\n\r\npm.test('[CreateBooking] response contains nullable property [additionalneeds]', () => {\r\n    pm.expect(jsonData.booking).to.have.property('additionalneeds');\r\n    pm.expect(jsonData.booking.additionalneeds).is.null;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                              "pm.test(\"[CreateBooking] returns valid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.collectionVariables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains valid property [bookingid]', () => {\r\n    pm.expect(jsonData).to.have.property('bookingid');\r\n    pm.expect(jsonData.bookingid).to.be.a('number');\r\n});\r\n\r\npm.test('[CreateBooking] response contains valid property [booking]', () => {\r\n    pm.expect(jsonData).to.have.property('booking');\r\n    pm.expect(jsonData.booking).to.be.an('object');\r\n    pm.expect(utils.isEqual(jsonData.booking, bookingData)).is.true;\r\n    //pm.expect(jsonData.booking).eql(bookingData);\r\n});\r\n\r\npm.collectionVariables.set(\"bookingData\", JSON.stringify(jsonData.booking));\r\npm.collectionVariables.set(\"bookingid\", jsonData.bookingid)"
                             ]
                           }
                         },
@@ -2414,7 +2414,7 @@
                           "script": {
                             "type": "text/javascript",
                             "exec": [
-                              "const updatedBookingData = {\r\n    \"additionalneeds\" : null\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                              "const updatedBookingData = {\r\n    \"additionalneeds\" : null\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\n\r\npm.collectionVariables.set(\"bookingData\", JSON.stringify(bookingData));"
                             ]
                           }
                         }
@@ -2451,6 +2451,59 @@
                           ],
                           "path": [
                             "booking"
+                          ]
+                        }
+                      },
+                      "response": []
+                    },
+                    {
+                      "name": "3.2.2 - Get booking by ID",
+                      "event": [
+                        {
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[GetBookingId] returns valid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\nconst bookingData = JSON.parse(pm.collectionVariables.get(\"bookingData\"));\n\npm.test('[GetBookingId] response contains created booking', () => {\n    pm.expect(jsonData).to.be.an('object');\n    pm.expect(utils.isEqual(jsonData, bookingData)).is.true;\n    //pm.expect(jsonData).eql(bookingData);\n});\n\npm.collectionVariables.unset(\"bookingData\");\npm.collectionVariables.unset(\"bookingid\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "utils.setupPathVariable(pm, \"bookingid\");"
+                            ]
+                          }
+                        }
+                      ],
+                      "request": {
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking/:bookingid",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking",
+                            ":bookingid"
+                          ],
+                          "variable": [
+                            {
+                              "key": "bookingid",
+                              "value": "{{bookingid}}"
+                            }
                           ]
                         }
                       },
@@ -2469,7 +2522,7 @@
                           "script": {
                             "type": "text/javascript",
                             "exec": [
-                              "pm.test(\"[CreateBooking] returns valid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response not contains property [additionalneeds]', () => {\r\n    pm.expect(jsonData.booking).to.not.have.property('additionalneeds');\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                              "pm.test(\"[CreateBooking] returns valid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.collectionVariables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains valid property [bookingid]', () => {\r\n    pm.expect(jsonData).to.have.property('bookingid');\r\n    pm.expect(jsonData.bookingid).to.be.a('number');\r\n});\r\n\r\npm.test('[CreateBooking] response contains valid property [booking]', () => {\r\n    pm.expect(jsonData).to.have.property('booking');\r\n    pm.expect(jsonData.booking).to.be.an('object');\r\n    pm.expect(utils.isEqual(jsonData.booking, bookingData)).is.true;\r\n    //pm.expect(jsonData.booking).eql(bookingData);\r\n});\r\n\r\npm.collectionVariables.set(\"bookingData\", JSON.stringify(jsonData.booking));\r\npm.collectionVariables.set(\"bookingid\", jsonData.bookingid)"
                             ]
                           }
                         },
@@ -2478,7 +2531,7 @@
                           "script": {
                             "type": "text/javascript",
                             "exec": [
-                              "const bookingData = utils.fixtures.generateBooking();\r\ndelete bookingData.additionalneeds;\r\n\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                              "const bookingData = utils.fixtures.generateBooking();\r\ndelete bookingData.additionalneeds;\r\n\r\npm.collectionVariables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
                             ]
                           }
                         }
@@ -2519,6 +2572,59 @@
                         }
                       },
                       "response": []
+                    },
+                    {
+                      "name": "3.3.2 - Get booking by ID",
+                      "event": [
+                        {
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[GetBookingId] returns valid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\nconst bookingData = JSON.parse(pm.collectionVariables.get(\"bookingData\"));\n\npm.test('[GetBookingId] response contains created booking', () => {\n    pm.expect(jsonData).to.be.an('object');\n    pm.expect(utils.isEqual(jsonData, bookingData)).is.true;\n    //pm.expect(jsonData).eql(bookingData);\n});\n\npm.collectionVariables.unset(\"bookingData\");\npm.collectionVariables.unset(\"bookingid\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "utils.setupPathVariable(pm, \"bookingid\");"
+                            ]
+                          }
+                        }
+                      ],
+                      "request": {
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking/:bookingid",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking",
+                            ":bookingid"
+                          ],
+                          "variable": [
+                            {
+                              "key": "bookingid",
+                              "value": "{{bookingid}}"
+                            }
+                          ]
+                        }
+                      },
+                      "response": []
                     }
                   ]
                 },
@@ -2533,7 +2639,7 @@
                           "script": {
                             "type": "text/javascript",
                             "exec": [
-                              "pm.test(\"[CreateBooking] returns valid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.variables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains empty property [additionalneeds]', () => {\r\n    pm.expect(jsonData.booking).to.have.property('additionalneeds');\r\n    pm.expect(jsonData.booking.additionalneeds).is.empty;\r\n});\r\n\r\npm.variables.unset(\"bookingData\");"
+                              "pm.test(\"[CreateBooking] returns valid OK [200] response\", () => {\r\n    pm.response.to.be.ok;\r\n    pm.response.to.be.withBody;\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nconst bookingData = JSON.parse(pm.collectionVariables.get(\"bookingData\"));\r\n\r\npm.test('[CreateBooking] response contains valid property [bookingid]', () => {\r\n    pm.expect(jsonData).to.have.property('bookingid');\r\n    pm.expect(jsonData.bookingid).to.be.a('number');\r\n});\r\n\r\npm.test('[CreateBooking] response contains valid property [booking]', () => {\r\n    pm.expect(jsonData).to.have.property('booking');\r\n    pm.expect(jsonData.booking).to.be.an('object');\r\n    pm.expect(utils.isEqual(jsonData.booking, bookingData)).is.true;\r\n    //pm.expect(jsonData.booking).eql(bookingData);\r\n});\r\n\r\npm.collectionVariables.set(\"bookingData\", JSON.stringify(jsonData.booking));\r\npm.collectionVariables.set(\"bookingid\", jsonData.bookingid)"
                             ]
                           }
                         },
@@ -2542,7 +2648,7 @@
                           "script": {
                             "type": "text/javascript",
                             "exec": [
-                              "const updatedBookingData = {\r\n    \"additionalneeds\" : \"\"\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.variables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
+                              "const updatedBookingData = {\r\n    \"additionalneeds\" : \"\"\r\n};\r\n\r\nconst bookingData = { ...utils.fixtures.generateBooking(), ...updatedBookingData }\r\npm.collectionVariables.set(\"bookingData\", JSON.stringify(bookingData));\r\n"
                             ]
                           }
                         }
@@ -2579,6 +2685,59 @@
                           ],
                           "path": [
                             "booking"
+                          ]
+                        }
+                      },
+                      "response": []
+                    },
+                    {
+                      "name": "3.4.2 - Get booking by ID",
+                      "event": [
+                        {
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "pm.test(\"[GetBookingId] returns valid OK [200] response\", () => {\n    pm.response.to.be.ok;\n    pm.response.to.be.withBody;\n    pm.response.to.be.json;\n});\n\nconst jsonData = pm.response.json();\nconst bookingData = JSON.parse(pm.collectionVariables.get(\"bookingData\"));\n\npm.test('[GetBookingId] response contains created booking', () => {\n    pm.expect(jsonData).to.be.an('object');\n    pm.expect(utils.isEqual(jsonData, bookingData)).is.true;\n    //pm.expect(jsonData).eql(bookingData);\n});\n\npm.collectionVariables.unset(\"bookingData\");\npm.collectionVariables.unset(\"bookingid\");"
+                            ]
+                          }
+                        },
+                        {
+                          "listen": "prerequest",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "utils.setupPathVariable(pm, \"bookingid\");"
+                            ]
+                          }
+                        }
+                      ],
+                      "request": {
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "",
+                          "options": {
+                            "raw": {
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/booking/:bookingid",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "booking",
+                            ":bookingid"
+                          ],
+                          "variable": [
+                            {
+                              "key": "bookingid",
+                              "value": "{{bookingid}}"
+                            }
                           ]
                         }
                       },
@@ -5154,7 +5313,25 @@
           "    },\r",
           "\r",
           "    findProperty: (obj, name) => {\r",
-          "        return Object.hasOwn(obj, name) ? obj[name] : null;\r",
+          "        return Object.hasOwnProperty(obj, name) ? obj[name] : null;\r",
+          "    },\r",
+          "\r",
+          "    hasSameKeys: (obj1, obj2) => {\r",
+          "        if (typeof obj1 !== 'object' || typeof obj2 !== 'object') {\r",
+          "            return false;\r",
+          "        }\r",
+          "\r",
+          "        const keys1 = Object.keys(obj1);\r",
+          "        const keys2 = Object.keys(obj2);\r",
+          "        if (keys1.length !== keys2.length) {\r",
+          "            return false;\r",
+          "        }\r",
+          "\r",
+          "        return keys1.every(key => Object.hasOwnProperty(obj2, key));\r",
+          "    },\r",
+          "\r",
+          "    isEqual: (obj1, obj2, comparator = () => {}) => {\r",
+          "        return _.isEqualWith(obj1, obj2, comparator);\r",
           "    }\r",
           "};\r",
           "\r",
